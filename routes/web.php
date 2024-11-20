@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PiscinaController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,6 @@ Route::get('/google-auth/redirect', function () {
  
 Route::get('/google-auth/callback', function () {
     $user_google = Socialite::driver('google')->user();
-  
     $user = User::updateOrCreate([
         'google_id' => $user_google->id,
     ], [
@@ -34,9 +34,7 @@ Route::get('/google-auth/callback', function () {
         'email' => $user_google->email,
         'password' =>encrypt('123456dummy'),
     ]);
- 
     Auth::login($user);
- 
     return redirect('/dashboard');
     // $user->token
 });
@@ -47,7 +45,6 @@ Route::get('/facebook-auth/redirect', function () {
  
 Route::get('/facebook-auth/callback', function () {
     $user_fb = Socialite::driver('facebook')->user();
- 
     $user = User::updateOrCreate([
         'facebook_id' => $user_fb->id,
     ], [
@@ -55,9 +52,7 @@ Route::get('/facebook-auth/callback', function () {
         'email' => $user_fb->getEmail(),
         'password' =>encrypt('123456dummy'),
     ]);
- 
     Auth::login($user);
- 
     return redirect('/dashboard');
     // $user->token
 });
@@ -70,6 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('piscina', PiscinaController::class);
 });
 
 require __DIR__.'/auth.php';
