@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('piscinas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombrep');
             $table->string('cliente');
             $table->string('pais')->nullable();
             $table->string('telefono');
@@ -23,6 +24,9 @@ return new class extends Migration
             $table->integer('largo')->nullable();
             $table->integer('ancho')->nullable();
             $table->integer('longitud');
+            $table->decimal('area');
+            $table->decimal('perimetro');
+            $table->decimal('volumen');
             $table->timestamps();
         });
     }

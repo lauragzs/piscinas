@@ -1,80 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TECOPOOL</title>
-
     <!-- Meta -->
     <meta name="description" content="Marketplace for Bootstrap Admin Dashboards" />
     <meta name="author" content="Bootstrap Gallery" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" />
+    <link rel="icon" href="{{ asset('assets/tecopoolicon.png') }}" />
 
-    <!-- *************
-      ************ CSS Files *************
-      
-    ************* -->
+    <!-- ************* CSS Files ************* -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-icons.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.min.css') }}" />
-
-    <!-- *************
-      ************ Vendor Css Files *************
-    ************ -->
-
+    <!-- ************* Vendor Css Files  ************ -->
     <!-- Scrollbar CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/OverlayScrollbars.min.css') }}" />
-
+    @yield('css')
     <style>
+      /* Ola fija con base pegada */
+      .wave {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 200%; /* Más ancho que el contenedor */
+          height: 120px; /* Altura base de la ola */
+          background: linear-gradient(to top, #007bff, #80d4ff); /* Gradiente para simular agua */
+          border-radius: 50% 50% 0 0; /* Curva superior */
+          transform-origin: bottom; /* Mantiene la base fija */
+          animation: waveStretch 3s ease-in-out infinite; /* Movimiento de ondulación */
+      }
 
-/* Ola fija con base pegada */
-.wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 200%; /* Más ancho que el contenedor */
-    height: 120px; /* Altura base de la ola */
-    background: linear-gradient(to top, #007bff, #80d4ff); /* Gradiente para simular agua */
-    border-radius: 50% 50% 0 0; /* Curva superior */
-    transform-origin: bottom; /* Mantiene la base fija */
-    animation: waveStretch 3s ease-in-out infinite; /* Movimiento de ondulación */
-}
-
-/* Animación de estiramiento */
-@keyframes waveStretch {
-    0% {
-        transform: scaleY(1); /* Altura normal */
-    }
-    50% {
-        transform: scaleY(1.3); /* Se estira hacia arriba */
-    }
-    100% {
-        transform: scaleY(1); /* Vuelve a la altura normal */
-    }
-}
+      /* Animación de estiramiento */
+      @keyframes waveStretch {
+          0% {
+              transform: scaleY(1); /* Altura normal */
+          }
+          50% {
+              transform: scaleY(1.3); /* Se estira hacia arriba */
+          }
+          100% {
+              transform: scaleY(1); /* Vuelve a la altura normal */
+          }
+      }
     </style>
   </head>
-
   <body>
-
     <!-- Page wrapper start -->
     <div class="page-wrapper">
-
       <!-- Main container start -->
       <div class="main-container">
-
         <!-- Sidebar wrapper start -->
         <nav id="sidebar" class="sidebar-wrapper">
-
           <!-- App brand starts -->
           <div class="app-brand p-4" style="text-align: center;">
-            <a href=" ">
-              <!--<img src="{{ asset('assets/images/logo.svg') }}" class="logo" alt="Bootstrap Gallery" />-->
-              <h1>- Tecopool -</h1>
+            <a href="{{route('dashboard')}} ">
+              <!--<img src="{{ asset('assets/tecopoolicon.png') }}" class="logo" alt="Bootstrap Gallery" />-->
+              <img src="{{ asset('assets/tecopoolicon.png') }}" width="70%" alt="TecoPool" />
+              <!--<h1>- Tecopool -</h1> -->
             </a>
           </div>
           <!-- App brand ends -->
-
           <!-- Sidebar profile actions starts -->
           <ul class="profile-actions d-lg-flex d-none">
             <li>
@@ -104,7 +89,6 @@
             </li>
           </ul>
           <!-- Sidebar profile actions ends -->
-
           <!-- Sidebar menu starts -->
           <div class="sidebarMenuScroll">
             <ul class="sidebar-menu">
@@ -158,16 +142,12 @@
             </ul>
           </div>
           <!-- Sidebar menu ends -->
-
         </nav>
         <!-- Sidebar wrapper end -->
-
         <!-- App container starts -->
         <div class="app-container">
-
           <!-- App header starts -->
           <div class="app-header d-flex align-items-center">
-
             <!-- Toggle buttons start -->
             <div class="d-flex">
               <button class="btn btn-outline-primary me-2 toggle-sidebar" id="toggle-sidebar">
@@ -178,8 +158,6 @@
               </button>
             </div>
             <!-- Toggle buttons end -->
-
-
             <!-- App brand sm start -->
             <div class="app-brand-sm d-md-none d-sm-block">
               <!--<a href="{{route('dashboard')}}">
@@ -187,7 +165,6 @@
               </a>-->
             </div>
             <!-- App brand sm end -->
-
             <!-- App header actions start -->
             <div class="header-actions">
               <div class="search-container d-lg-block d-none me-2">
@@ -230,7 +207,6 @@
           <div class="app-hero-header d-flex align-items-start contenedorr position-relative overflow-hidden">
     <!-- Contenedor de la ola -->
     <div class="wave"></div>
-
     <!-- Breadcrumb start -->
     <ol class="breadcrumb d-none d-lg-flex align-items-center position-relative">
         <li class="breadcrumb-item">
@@ -239,58 +215,42 @@
     </ol>
     <!-- Breadcrumb end -->
 </div>
-
           <!-- App Hero header ends -->
-
           <!-- App body starts -->
           <div class="app-body">
             @yield('content')
           </div>
           <!-- App body ends -->
-
           <!-- App footer start -->
           <div class="app-footer">
             <span>Tecopool 2024</span>
           </div>
           <!-- App footer end -->
-
         </div>
         <!-- App container ends -->
-
       </div>
       <!-- Main container end -->
-
     </div>
     <!-- Page wrapper end -->
-
-    <!-- *************
-      ************ JavaScript Files *************
-    ************* -->
+    <!-- ************* JavaScript Files  ************* -->
     <!-- Required jQuery first, then Bootstrap Bundle JS -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- *************
-      ************ Vendor Js Files *************
-    ************* -->
-
+    <!-- ************* Vendor Js Files ************* -->
     <!-- Overlay Scroll JS -->
     <script src="{{ asset('assets/js/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom-scrollbar.js') }}"></script>
-
     <!-- Apex Charts -->
     <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/js/activity-report.js') }}"></script>
     <script src="{{ asset('assets/js/deals.js') }}"></script>
     <script src="{{ asset('assets/js/sparkline.js') }}"></script>
     <script src="{{ asset('assets/js/sparkline2.js') }}"></script>
-
     <!-- Rating -->
     <script src="{{ asset('assets/js/raty.js') }}"></script>
     <script src="{{ asset('assets/js/raty-custom.js') }}"></script>
-
     <!-- Custom JS files -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    @yield('js')
   </body>
-
 </html>

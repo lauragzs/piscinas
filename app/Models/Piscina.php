@@ -10,6 +10,6 @@ class Piscina extends Model
     use HasFactory;
     protected $table="piscinas";
     protected $primaryKey="id";
-    protected $fillable=['cliente', 'pais', 'telefono','profundidad','largo','ancho','longitud'];
+    protected $fillable=['nombrep','cliente', 'pais', 'telefono','tipo','profundidad','largo','ancho','longitud','area','perimetro','volumen'];
     protected $hidden=['id'];
 }

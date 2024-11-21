@@ -44,6 +44,7 @@ class PiscinaController extends Controller
         //
         $piscina= new Piscina($request->all());
         $piscina->save();
+        //dd($piscina);
         return redirect()->action([PiscinaController::class, 'index']);
     }
     /**
