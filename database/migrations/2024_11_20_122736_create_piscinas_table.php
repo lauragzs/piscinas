@@ -23,10 +23,14 @@ return new class extends Migration
             $table->integer('profundidad');
             $table->integer('largo')->nullable();
             $table->integer('ancho')->nullable();
-            $table->integer('longitud');
+            $table->integer('longitud')->nullable();
             $table->decimal('area');
             $table->decimal('perimetro');
             $table->decimal('volumen');
+            $table->enum('tipologia',['privada','publica']);
+            $table->string('caudal');
+            $table->string('succion');
+            $table->string('impulsion');
             $table->timestamps();
         });
     }

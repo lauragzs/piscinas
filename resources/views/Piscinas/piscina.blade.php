@@ -67,6 +67,46 @@
   *:after {
     box-sizing: border-box;
   }
+  /* Icono de ayuda */
+.help-icon {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 30px;
+  height: 30px;
+  background-color: #007bff;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Ventana emergente */
+.help-tooltip {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: white;
+  color: #333;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: auto;
+  z-index: 10;
+}
+.help-tooltip img {
+  display: block; /* Elimina espacios blancos debajo de la imagen */
+}
+
+.help-tooltip h4 {
+  margin: 0 0 10px; /* Espacio debajo del título */
+}
 </style>
 @endsection
 @section('name')
@@ -88,16 +128,16 @@
               <tr>
                 <th>Nombre</th>
                 <th>Cliente</th>
-                <th>Pais</th>
-                <th>Telefono</th>
+                <th>País</th>
+                <th>Teléfono</th>
                 <th>Tipo</th>
                 <th>Profundidad(m)</th>
-                <th>Longitud(m)</th>
-                <th>Largo(m)</th>
-                <th>Ancho(m)</th>
-                <th>Area(m²)</th>
-                <th>Perimetro(m)</th>
+                <th>Área(m²)</th>
+                <th>Perímetro(m)</th>
                 <th>Volumen(m³)</th>
+                <th>Caudal de <br>Circulación</th>
+                <th>Diametro de <br>Succión</th>
+                <th>Diametro de <br>Impulsión</th>
               </tr>
             </thead>
             <tbody>
@@ -124,17 +164,6 @@
                     <p class="m-0">{{ $piscinas->profundidad }}</p>
                   </td>
                   <td>
-                    {{ $piscinas->longitud }}
-                    <!--<div class="rate2 rating-stars"></div> -->
-                  </td>
-                  <td>
-                    {{ $piscinas->largo }}
-                    <!--<div id="sparkline1"></div>-->
-                  </td>
-                  <td>
-                    {{ $piscinas->ancho }}
-                  </td>
-                  <td>
                     {{ $piscinas->area }}
                   </td>
                   <td>
@@ -143,7 +172,17 @@
                   <td>
                     <p class="m-0 text-danger"></p>
                     {{ $piscinas->volumen }}
-                    
+                  </td>
+                  <td>
+                    {{ $piscinas->caudal }}
+                    <!--<div class="rate2 rating-stars"></div> -->
+                  </td>
+                  <td>
+                    {{ $piscinas->succion }}
+                    <!--<div id="sparkline1"></div>-->
+                  </td>
+                  <td>
+                    {{ $piscinas->impulsion }}
                   </td>
                 </tr>
               @endforeach
@@ -172,6 +211,12 @@
             <!-- Tab 3 -->
             <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
             <label for="tab3">Paso 3</label>
+            <!-- Tab 4 -->
+            <input type="radio" name="tabset" id="tab4" aria-controls="paso4">
+            <label for="tab4">Paso 4</label>
+            <!-- Tab 5 -->
+            <input type="radio" name="tabset" id="tab5" aria-controls="paso5">
+            <label for="tab5">Paso 5</label>
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
               <div class="tab-panels">
                 <section id="marzen" class="tab-panel">
@@ -185,7 +230,7 @@
                     <input type="text" class="form-control" id="cliente" name="cliente" value="{{ Auth::user()->name }}" readonly>
                     </div>
                   <div class="mb-3">
-                    <label for="pais" class="form-label">Pais</label>
+                    <label for="pais" class="form-label">País</label>
                     <select name="pais" class="form-select">
                       <option value="AF">Afganistán</option><option value="AL">Albania</option><option value="DE">Alemania</option>
                       <option value="AD">Andorra</option><option value="AO">Angola</option><option value="AI">Anguilla</option>
@@ -268,267 +313,90 @@
                     </select>
                   </div>
                   <div class="mb-3 row">
-                    <label for="phoneNumber" class="form-label">Telefono</label>
+                    <label for="phoneNumber" class="form-label">Teléfono</label>
                     <div class="col-4 col-md-4">
                     <select class="form-select" id="countryCode" name="countryCode">
-                      <option value="+93">Afghanistan +93</option>
-                      <option value="+358">Aland Islands +358</option>
-                      <option value="+355">Albania +355</option>
-                      <option value="+213">Algeria +213</option>
-                      <option value="+1684">American Samoa +1684</option>
-                      <option value="+376">Andorra +376</option>
-                      <option value="+244">Angola +244</option>
-                      <option value="+1264">Anguilla +1264</option>
-                      <option value="+672">Antarctica +672</option>
-                      <option value="+1268">Antigua and Barbuda +1268</option>
-                      <option value="+54">Argentina +54</option>
-                      <option value="+374">Armenia +374</option>
-                      <option value="+297">Aruba +297</option>
-                      <option value="+61">Australia +61</option>
-                      <option value="+43">Austria +43</option>
-                      <option value="+994">Azerbaijan +994</option>
-                      <option value="+1242">Bahamas +1242</option>
-                      <option value="+973">Bahrain +973</option>
-                      <option value="+880">Bangladesh +880</option>
-                      <option value="+1246">Barbados +1246</option>
-                      <option value="+375">Belarus +375</option>
-                      <option value="+32">Belgium +32</option>
-                      <option value="+501">Belize +501</option>
-                      <option value="+229">Benin +229</option>
-                      <option value="+1441">Bermuda +1441</option>
-                      <option value="+975">Bhutan +975</option>
-                      <option value="+591">Bolivia +591</option>
-                      <option value="+599">Bonaire, Sint Eustatius and Saba +599</option>
-                      <option value="+387">Bosnia and Herzegovina +387</option>
-                      <option value="+267">Botswana +267</option>
-                      <option value="+55">Bouvet Island +55</option>
-                      <option value="+55">Brazil +55</option>
-                      <option value="+246">British Indian Ocean Territory +246</option>
-                      <option value="+673">Brunei Darussalam +673</option>
-                      <option value="+359">Bulgaria +359</option>
-                      <option value="+226">Burkina Faso +226</option>
-                      <option value="+257">Burundi +257</option>
-                      <option value="+855">Cambodia +855</option>
-                      <option value="+237">Cameroon +237</option>
-                      <option value="+1">Canada +1</option>
-                      <option value="+238">Cape Verde +238</option>
-                      <option value="+1345">Cayman Islands +1345</option>
-                      <option value="+236">Central African Republic +236</option>
-                      <option value="+235">Chad +235</option>
-                      <option value="+56">Chile +56</option>
-                      <option value="+86">China +86</option>
-                      <option value="+61">Christmas Island +61</option>
-                      <option value="+672">Cocos (Keeling) Islands +672</option>
-                      <option value="+57">Colombia +57</option>
-                      <option value="+269">Comoros +269</option>
-                      <option value="+242">Congo +242</option>
-                      <option value="+242">Congo, Democratic Republic of the Congo +242</option>
-                      <option value="+682">Cook Islands +682</option>
-                      <option value="+506">Costa Rica +506</option>
-                      <option value="+225">Cote D'Ivoire +225</option>
-                      <option value="+385">Croatia +385</option>
-                      <option value="+53">Cuba +53</option>
-                      <option value="+599">Curacao +599</option>
-                      <option value="+357">Cyprus +357</option>
-                      <option value="+420">Czech Republic +420</option>
-                      <option value="+45">Denmark +45</option>
-                      <option value="+253">Djibouti +253</option>
-                      <option value="+1767">Dominica +1767</option>
-                      <option value="+1809">Dominican Republic +1809</option>
-                      <option value="+593">Ecuador +593</option>
-                      <option value="+20">Egypt +20</option>
-                      <option value="+503">El Salvador +503</option>
-                      <option value="+240">Equatorial Guinea +240</option>
-                      <option value="+291">Eritrea +291</option>
-                      <option value="+372">Estonia +372</option>
-                      <option value="+251">Ethiopia +251</option>
-                      <option value="+500">Falkland Islands (Malvinas) +500</option>
-                      <option value="+298">Faroe Islands +298</option>
-                      <option value="+679">Fiji +679</option>
-                      <option value="+358">Finland +358</option>
-                      <option value="+33">France +33</option>
-                      <option value="+594">French Guiana +594</option>
-                      <option value="+689">French Polynesia +689</option>
-                      <option value="+262">French Southern Territories +262</option>
-                      <option value="+241">Gabon +241</option>
-                      <option value="+220">Gambia +220</option>
-                      <option value="+995">Georgia +995</option>
-                      <option value="+49">Germany +49</option>
-                      <option value="+233">Ghana +233</option>
-                      <option value="+350">Gibraltar +350</option>
-                      <option value="+30">Greece +30</option>
-                      <option value="+299">Greenland +299</option>
-                      <option value="+1473">Grenada +1473</option>
-                      <option value="+590">Guadeloupe +590</option>
-                      <option value="+1671">Guam +1671</option>
-                      <option value="+502">Guatemala +502</option>
-                      <option value="+44">Guernsey +44</option>
-                      <option value="+224">Guinea +224</option>
-                      <option value="+245">Guinea-Bissau +245</option>
-                      <option value="+592">Guyana +592</option>
-                      <option value="+509">Haiti +509</option>
-                      <option value="+39">Holy See (Vatican City State) +39</option>
-                      <option value="+504">Honduras +504</option>
-                      <option value="+852">Hong Kong +852</option>
-                      <option value="+36">Hungary +36</option>
-                      <option value="+354">Iceland +354</option>
-                      <option value="+91">India +91</option>
-                      <option value="+62">Indonesia +62</option>
-                      <option value="+98">Iran, Islamic Republic of +98</option>
-                      <option value="+964">Iraq +964</option>
-                      <option value="+353">Ireland +353</option>
-                      <option value="+44">Isle of Man +44</option>
-                      <option value="+972">Israel +972</option>
-                      <option value="+39">Italy +39</option>
-                      <option value="+1876">Jamaica +1876</option>
-                      <option value="+81">Japan +81</option>
-                      <option value="+44">Jersey +44</option>
-                      <option value="+962">Jordan +962</option>
-                      <option value="+7">Kazakhstan +7</option>
-                      <option value="+254">Kenya +254</option>
-                      <option value="+686">Kiribati +686</option>
-                      <option value="+850">Korea, Democratic People's Republic of +850</option>
-                      <option value="+82">Korea, Republic of +82</option>
-                      <option value="+381">Kosovo +383</option>
-                      <option value="+965">Kuwait +965</option>
-                      <option value="+996">Kyrgyzstan +996</option>
-                      <option value="+856">Lao People's Democratic Republic +856</option>
-                      <option value="+371">Latvia +371</option>
-                      <option value="+961">Lebanon +961</option>
-                      <option value="+266">Lesotho +266</option>
-                      <option value="+231">Liberia +231</option>
-                      <option value="+218">Libyan Arab Jamahiriya +218</option>
-                      <option value="+423">Liechtenstein +423</option>
-                      <option value="+370">Lithuania +370</option>
-                      <option value="+352">Luxembourg +352</option>
-                      <option value="+853">Macao +853</option>
-                      <option value="+389">Macedonia, the Former Yugoslav Republic of +389</option>
-                      <option value="+261">Madagascar +261</option>
-                      <option value="+265">Malawi +265</option>
-                      <option value="+60">Malaysia +60</option>
-                      <option value="+960">Maldives +960</option>
-                      <option value="+223">Mali +223</option>
-                      <option value="+356">Malta +356</option>
-                      <option value="+692">Marshall Islands +692</option>
-                      <option value="+596">Martinique +596</option>
-                      <option value="+222">Mauritania +222</option>
-                      <option value="+230">Mauritius +230</option>
-                      <option value="+262">Mayotte +262</option>
-                      <option value="+52">Mexico +52</option>
-                      <option value="+691">Micronesia, Federated States of +691</option>
-                      <option value="+373">Moldova, Republic of +373</option>
-                      <option value="+377">Monaco +377</option>
-                      <option value="+976">Mongolia +976</option>
-                      <option value="+382">Montenegro +382</option>
-                      <option value="+1664">Montserrat +1664</option>
-                      <option value="+212">Morocco +212</option>
-                      <option value="+258">Mozambique +258</option>
-                      <option value="+95">Myanmar +95</option>
-                      <option value="+264">Namibia +264</option>
-                      <option value="+674">Nauru +674</option>
-                      <option value="+977">Nepal +977</option>
-                      <option value="+31">Netherlands +31</option>
-                      <option value="+599">Netherlands Antilles +599</option>
-                      <option value="+687">New Caledonia +687</option>
-                      <option value="+64">New Zealand +64</option>
-                      <option value="+505">Nicaragua +505</option>
-                      <option value="+227">Niger +227</option>
-                      <option value="+234">Nigeria +234</option>
-                      <option value="+683">Niue +683</option>
-                      <option value="+67">Norfolk Island +672</option>
-                      <option value="+1670">Northern Mariana Islands +1670</option>
-                      <option value="+47">Norway +47</option>
-                      <option value="+968">Oman +968</option>
-                      <option value="+92">Pakistan +92</option>
-                      <option value="+680">Palau +680</option>
-                      <option value="+970">Palestinian Territory, Occupied +970</option>
-                      <option value="+507">Panama +507</option>
-                      <option value="+675">Papua New Guinea +675</option>
-                      <option value="+595">Paraguay +595</option>
-                      <option value="+51">Peru +51</option>
-                      <option value="+63">Philippines +63</option>
-                      <option value="+64">Pitcairn +64</option>
-                      <option value="+48">Poland +48</option>
-                      <option value="+351">Portugal +351</option>
-                      <option value="+1787">Puerto Rico +1787</option>
-                      <option value="+974">Qatar +974</option>
-                      <option value="+262">Reunion +262</option>
-                      <option value="+40">Romania +40</option>
-                      <option value="+7">Russian Federation +7</option>
-                      <option value="+250">Rwanda +250</option>
-                      <option value="+590">Saint Barthelemy +590</option>
-                      <option value="+290">Saint Helena +290</option>
-                      <option value="+1869">Saint Kitts and Nevis +1869</option>
-                      <option value="+1758">Saint Lucia +1758</option>
-                      <option value="+590">Saint Martin +590</option>
-                      <option value="+508">Saint Pierre and Miquelon +508</option>
-                      <option value="+1784">Saint Vincent and the Grenadines +1784</option>
-                      <option value="+684">Samoa +684</option>
-                      <option value="+378">San Marino +378</option>
-                      <option value="+239">Sao Tome and Principe +239</option>
-                      <option value="+966">Saudi Arabia +966</option>
-                      <option value="+221">Senegal +221</option>
-                      <option value="+381">Serbia +381</option>
-                      <option value="+381">Serbia and Montenegro +381</option>
-                      <option value="+248">Seychelles +248</option>
-                      <option value="+232">Sierra Leone +232</option>
-                      <option value="+65">Singapore +65</option>
-                      <option value="+721">Sint Maarten +721</option>
-                      <option value="+421">Slovakia +421</option>
-                      <option value="+386">Slovenia +386</option>
-                      <option value="+677">Solomon Islands +677</option>
-                      <option value="+252">Somalia +252</option>
-                      <option value="+27">South Africa +27</option>
-                      <option value="+500">South Georgia and the South Sandwich Islands +500</option>
-                      <option value="+211">South Sudan +211</option>
-                      <option value="+34">Spain +34</option>
-                      <option value="+94">Sri Lanka +94</option>
-                      <option value="+249">Sudan +249</option>
-                      <option value="+597">Suriname +597</option>
-                      <option value="+47">Svalbard and Jan Mayen +47</option>
-                      <option value="+268">Swaziland +268</option>
-                      <option value="+46">Sweden +46</option>
-                      <option value="+41">Switzerland +41</option>
-                      <option value="+963">Syrian Arab Republic +963</option>
-                      <option value="+886">Taiwan, Province of China +886</option>
-                      <option value="+992">Tajikistan +992</option>
-                      <option value="+255">Tanzania, United Republic of +255</option>
-                      <option value="+66">Thailand +66</option>
-                      <option value="+670">Timor-Leste +670</option>
-                      <option value="+228">Togo +228</option>
-                      <option value="+690">Tokelau +690</option>
-                      <option value="+676">Tonga +676</option>
-                      <option value="+1868">Trinidad and Tobago +1868</option>
-                      <option value="+216">Tunisia +216</option>
-                      <option value="+90">Turkey +90</option>
-                      <option value="+7370">Turkmenistan +7370</option>
-                      <option value="+1649">Turks and Caicos Islands +1649</option>
-                      <option value="+688">Tuvalu +688</option>
-                      <option value="+256">Uganda +256</option>
-                      <option value="+380">Ukraine +380</option>
-                      <option value="+971">United Arab Emirates +971</option>
-                      <option value="+44">United Kingdom +44</option>
-                      <option value="+1">United States +1</option>
-                      <option value="+1">United States Minor Outlying Islands +1</option>
-                      <option value="+598">Uruguay +598</option>
-                      <option value="+998">Uzbekistan +998</option>
-                      <option value="+678">Vanuatu +678</option>
-                      <option value="+58">Venezuela +58</option>
-                      <option value="+84">Viet Nam +84</option>
-                      <option value="+1284">Virgin Islands, British +1284</option>
-                      <option value="+1340">Virgin Islands, U.s. +1340</option>
-                      <option value="+681">Wallis and Futuna +681</option>
-                      <option value="+212">Western Sahara +212</option>
-                      <option value="+967">Yemen +967</option>
-                      <option value="+260">Zambia +260</option>
-                      <option value="+263">Zimbabwe +263</option>
+                      <option value="+93">Afganistán +93</option>
+                      <option value="+355">Albania +355</option><option value="+49">Alemania +49</option><option value="+376">Andorra +376</option>
+                      <option value="+244">Angola +244</option><option value="+1264">Anguilla +1264</option><option value="+672">Antártida +672</option>
+                      <option value="+1268">Antigua y Barbuda +1268</option><option value="+599">Antillas Holandesas +599</option><option value="+966">Arabia Saudí +966</option>
+                      <option value="+213">Argelia +213</option><option value="+54">Argentina +54</option><option value="+374">Armenia +374</option>
+                      <option value="+297">Aruba +297</option><option value="+61">Australia +61</option><option value="+43">Austria +43</option>
+                      <option value="+994">Azerbaiyán +994</option><option value="+1242">Bahamas +1242</option><option value="+973">Bahrein +973</option>
+                      <option value="+880">Bangladesh +880</option><option value="+1246">Barbados +1246</option><option value="+32">Bélgica +32</option>
+                      <option value="+501">Belice +501</option><option value="+229">Benin +229</option><option value="+1441">Bermudas +1441</option>
+                      <option value="+375">Bielorrusia +375</option><option value="+95">Birmania +95</option><option value="+591">Bolivia +591</option>
+                      <option value="+387">Bosnia y Herzegovina +387</option><option value="+267">Botswana +267</option><option value="+55">Brasil +55</option>
+                      <option value="+673">Brunei +673</option><option value="+359">Bulgaria +359</option><option value="+226">Burkina Faso +226</option>
+                      <option value="+257">Burundi +257</option><option value="+975">Bután +975</option><option value="+238">Cabo Verde +238</option>
+                      <option value="+855">Camboya +855</option><option value="+237">Camerún +237</option><option value="+1">Canadá +1</option>
+                      <option value="+235">Chad +235</option><option value="+56">Chile +56</option><option value="+86">China +86</option>
+                      <option value="+357">Chipre +357</option><option value="+39">Ciudad del Vaticano (Santa Sede) +39</option><option value="+57">Colombia +57</option>
+                      <option value="+269">Comores +269</option><option value="+242">Congo +242</option><option value="+243">Congo, República Democrática del +243</option>
+                      <option value="+82">Corea +82</option><option value="+850">Corea del Norte +850</option><option value="+225">Costa de Marfíl +225</option>
+                      <option value="+506">Costa Rica +506</option><option value="+385">Croacia (Hrvatska) +385</option><option value="+53">Cuba +53</option>
+                      <option value="+45">Dinamarca +45</option><option value="+253">Djibouti +253</option><option value="+1767">Dominica +1767</option>
+                      <option value="+593">Ecuador +593</option><option value="+20">Egipto +20</option><option value="+503">El Salvador +503</option>
+                      <option value="+971">Emiratos Árabes Unidos +971</option><option value="+291">Eritrea +291</option><option value="+386">Eslovenia +386</option>
+                      <option value="+34" selected>España +34</option><option value="+1">Estados Unidos +1</option><option value="+593">Ecuador +593</option>
+                      <option value="+20">Egipto +20</option><option value="+503">El Salvador +503</option><option value="+971">Emiratos Árabes Unidos +971</option>
+                      <option value="+291">Eritrea +291</option><option value="+386">Eslovenia +386</option><option value="+34" selected>España +34</option>
+                      <option value="+1">Estados Unidos +1</option><option value="+372">Estonia +372</option><option value="+251">Etiopía +251</option>
+                      <option value="+679">Fiji +679</option><option value="+63">Filipinas +63</option><option value="+358">Finlandia +358</option>
+                      <option value="+33">Francia +33</option><option value="+241">Gabón +241</option><option value="+220">Gambia +220</option>
+                      <option value="+995">Georgia +995</option><option value="+233">Ghana +233</option><option value="+350">Gibraltar +350</option>
+                      <option value="+1473">Granada +1473</option><option value="+30">Grecia +30</option><option value="+299">Groenlandia +299</option>
+                      <option value="+590">Guadalupe +590</option><option value="+1671">Guam +1671</option><option value="+502">Guatemala +502</option>
+                      <option value="+592">Guayana +592</option><option value="+594">Guayana Francesa +594</option><option value="+224">Guinea +224</option>
+                      <option value="+240">Guinea Ecuatorial +240</option><option value="+245">Guinea-Bissau +245</option><option value="+509">Haití +509</option>
+                      <option value="+504">Honduras +504</option><option value="+36">Hungría +36</option><option value="+91">India +91</option>
+                      <option value="+62">Indonesia +62</option><option value="+964">Irak +964</option><option value="+98">Irán +98</option>
+                      <option value="+353">Irlanda +353</option><option value="+354">Islandia +354</option><option value="+972">Israel +972</option>
+                      <option value="+39">Italia +39</option><option value="+1876">Jamaica +1876</option><option value="+81">Japón +81</option>
+                      <option value="+962">Jordania +962</option><option value="+7">Kazajistán +7</option><option value="+254">Kenia +254</option>
+                      <option value="+996">Kirguizistán +996</option><option value="+686">Kiribati +686</option><option value="+965">Kuwait +965</option>
+                      <option value="+856">Laos +856</option><option value="+266">Lesotho +266</option><option value="+371">Letonia +371</option>
+                      <option value="+961">Líbano +961</option><option value="+231">Liberia +231</option><option value="+218">Libia +218</option>
+                      <option value="+423">Liechtenstein +423</option><option value="+370">Lituania +370</option><option value="+352">Luxemburgo +352</option>
+                      <option value="+389">Macedonia +389</option><option value="+261">Madagascar +261</option><option value="+60">Malasia +60</option>
+                      <option value="+265">Malawi +265</option><option value="+960">Maldivas +960</option><option value="+223">Malí +223</option>
+                      <option value="+356">Malta +356</option><option value="+212">Marruecos +212</option><option value="+596">Martinica +596</option>
+                      <option value="+230">Mauricio +230</option><option value="+222">Mauritania +222</option><option value="+262">Mayotte +262</option>
+                      <option value="+52">México +52</option><option value="+691">Micronesia +691</option><option value="+373">Moldavia +373</option>
+                      <option value="+377">Mónaco +377</option><option value="+976">Mongolia +976</option><option value="+1664">Montserrat +1664</option>
+                      <option value="+258">Mozambique +258</option><option value="+264">Namibia +264</option><option value="+674">Nauru +674</option>
+                      <option value="+977">Nepal +977</option><option value="+505">Nicaragua +505</option><option value="+227">Níger +227</option>
+                      <option value="+234">Nigeria +234</option><option value="+683">Niue +683</option><option value="+672">Norfolk +672</option>
+                      <option value="+47">Noruega +47</option><option value="+687">Nueva Caledonia +687</option><option value="+64">Nueva Zelanda +64</option>
+                      <option value="+968">Omán +968</option><option value="+31">Países Bajos +31</option><option value="+92">Pakistán +92</option>
+                      <option value="+680">Palaos +680</option><option value="+507">Panamá +507</option><option value="+675">Papúa Nueva Guinea +675</option>
+                      <option value="+595">Paraguay +595</option><option value="+51">Perú +51</option><option value="+689">Polinesia Francesa +689</option>
+                      <option value="+48">Polonia +48</option><option value="+351">Portugal +351</option><option value="+1787">Puerto Rico +1787</option>
+                      <option value="+974">Qatar +974</option><option value="+44">Reino Unido +44</option><option value="+236">República Centroafricana +236</option>
+                      <option value="+420">República Checa +420</option><option value="+243">República Democrática del Congo +243</option><option value="+1809">República Dominicana +1809</option>
+                      <option value="+262">Reunión +262</option><option value="+250">Ruanda +250</option><option value="+40">Rumanía +40</option>
+                      <option value="+7">Rusia +7</option><option value="+685">Samoa +685</option><option value="+684">Samoa Americana +684</option>
+                      <option value="+378">San Marino +378</option><option value="+239">Santo Tomé y Príncipe +239</option><option value="+221">Senegal +221</option>
+                      <option value="+381">Serbia +381</option><option value="+248">Seychelles +248</option><option value="+232">Sierra Leona +232</option>
+                      <option value="+65">Singapur +65</option><option value="+963">Siria +963</option><option value="+252">Somalia +252</option>
+                      <option value="+94">Sri Lanka +94</option><option value="+268">Suazilandia +268</option><option value="+27">Sudáfrica +27</option>
+                      <option value="+249">Sudán +249</option><option value="+211">Sudán del Sur +211</option><option value="+46">Suecia +46</option>
+                      <option value="+41">Suiza +41</option><option value="+597">Surinam +597</option><option value="+66">Tailandia +66</option>
+                      <option value="+886">Taiwán +886</option><option value="+992">Tayikistán +992</option><option value="+255">Tanzania +255</option>
+                      <option value="+670">Timor Oriental +670</option><option value="+228">Togo +228</option><option value="+676">Tonga +676</option>
+                      <option value="+1868">Trinidad y Tobago +1868</option><option value="+216">Túnez +216</option><option value="+993">Turkmenistán +993</option>
+                      <option value="+90">Turquía +90</option><option value="+688">Tuvalu +688</option><option value="+380">Ucrania +380</option>
+                      <option value="+256">Uganda +256</option><option value="+598">Uruguay +598</option><option value="+998">Uzbekistán +998</option>
+                      <option value="+678">Vanuatu +678</option><option value="+58">Venezuela +58</option><option value="+84">Vietnam +84</option>
+                      <option value="+681">Wallis y Futuna +681</option><option value="+967">Yemen +967</option><option value="+260">Zambia +260</option>
+                      <option value="+263">Zimbabue +263</option>
                   </select>
                     </div>
                     <div class="col-8 col-md-8">
                       <input type="number" step="0" min="0" class="form-control" id="phoneNumber" name="phoneNumber" required>
                     </div>
                   </div>
-                  <button type="button" aria-controls="rauchbier" class="btn btn-info" id="btnContinuar">Continuar <i class="fa-solid fa-plus"></i></button>
+                  <button type="button" onclick="combinePhoneNumber()" aria-controls="rauchbier" class="btn btn-info" id="btnContinuar">Continuar <i class="fa-solid fa-plus"></i></button>
                 </section>
                 <section id="rauchbier" class="tab-panel">
                   <h2>Tipo de Piscina</h2>
@@ -572,16 +440,16 @@
                       <input type="number" class="form-control" id="longitud" name="longitud" step="0" min="0" placeholder="0" disabled>
                     </div>
                   </div>
-                  <button type="button" aria-controls="dunkles" class="btn btn-info" id="btnContinuar2">Continuar <i class="fa-solid fa-plus"></i></button>
+                  <button onclick="paso3()" type="button" aria-controls="dunkles" class="btn btn-info" id="btnContinuar2">Continuar <i class="fa-solid fa-plus"></i></button>
                 </section>
                 <section id="dunkles" class="tab-panel">
                   <h2>Paso 3</h2>
                   <div class="mb-3">
-                    <label for="area" class="form-label">Area (m²)</label>
+                    <label for="area" class="form-label">Área (m²)</label>
                     <input type="number" class="form-control" id="area" name="area" step="0.01" min="0" placeholder="0,00" required>
                   </div>
                   <div class="mb-3">
-                    <label for="perimetro" class="form-label">Perimetro (m)</label>
+                    <label for="perimetro" class="form-label">Perímetro (m)</label>
                     <input type="number" class="form-control" id="perimetro" name="perimetro" step="0.01" min="0" placeholder="0,00" required>
                   </div>                              
                   <div class="mb-3">
@@ -589,7 +457,72 @@
                     <input type="number" class="form-control" id="volumen" name="volumen" step="0.001" min="0" placeholder="0,00" required>
                   </div>
                   <input type="hidden" id="telefono" name="telefono">
-                  <button type="submit" class="btn btn-info" onclick="combinePhoneNumber()">Añadir <i class="fa-solid fa-plus"></i></button>
+                  <input type="hidden" id="caudalms" name="caudal">
+                  <button onclick="radiotiempo()" type="button" aria-controls="paso4" class="btn btn-info" id="btnContinuar3">Continuar <i class="fa-solid fa-plus"></i></button>
+                </section>
+                <section id="paso4" class="tab-panel" style="position: relative;">
+                  <h2>Tiempo Máximo de Filtración</h2>
+                  <div class="help-icon" onclick="toggleHelpTooltip('tooltip1')">?</div>
+                  <div id="tooltip1" class="help-tooltip">
+                    <h4>Tiempo Máximo de Filtración (horas)</h4>
+                    <img src="{{ asset('assets/images/tipologia.png') }}" alt="velocidades" style="width: 420px">
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="tipologia" id="privada" value="privada" checked>
+                          <label class="form-check-label" for="privada">Privada</label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="tipologia" id="publica" value="publica">
+                          <label class="form-check-label" for="publica">Pública</label>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-12 col-md-6">
+                      <label for="prof" class="form-label">Profundidad (m)</label>
+                      <input type="text" class="form-control" id="prof" name="prof" readonly>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="tiempo" class="form-label">Tiempo (h)</label>
+                      <input type="text" class="form-control" id="tiempo" name="tiempo" readonly>
+                    </div>
+                  </div>
+                  <div class="mb-3 row">
+                    <label for="caudal" class="form-label">Caudal de Recirculación</label>
+                    <div class="col-6 col-md-3">
+                      <input type="text" class="form-control" id="caudalm" placeholder="0,00" readonly>
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <input type="text" class="form-control" id="caudall" name="caudal" placeholder="0,00" readonly>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <input type="button" value="Calcular" onclick="caudalrec()" class="form-control btn btn-info" id="calcaudal" name="calcaudal">
+                    </div>
+                  </div>
+                  <button type="button" onclick="paso5()" aria-controls="paso5" class="btn btn-info" id="btnContinuar4">Continuar <i class="fa-solid fa-plus"></i></button>
+                </section>
+                <section id="paso5" class="tab-panel" style="position: relative;">
+                  <h2>Diametro de Succión e Impulsión</h2>
+                  <div class="help-icon" onclick="toggleHelpTooltip('tooltip2')">?</div>
+                  <div id="tooltip2" class="help-tooltip">
+                    <h4>Velocidades Máximas</h4>
+                    <img style="width: 250px" src="{{ asset('assets/images/succionimpulsion.png') }}" alt="velocidades">
+                  </div>
+                  <div class="mb-3 row">
+                    <div class="col-12 col-md-6">
+                      <label for="succion" class="form-label">Succión</label>
+                      <input type="text" class="form-control" id="succion" name="succion" readonly>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="impulsion" class="form-label">Impulsión</label>
+                      <input type="text" class="form-control" id="impulsion" name="impulsion" readonly>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-info">Añadir <i class="fa-solid fa-plus"></i></button>
                 </section>
               </div>
             </div>
@@ -601,16 +534,19 @@
 @endsection
 @section('js')
 <script>
+  function toggleHelpTooltip(id) {
+    const tooltip = document.getElementById(id);
+    if (tooltip.style.display === 'block') {
+      tooltip.style.display = 'none';
+    } else {
+      tooltip.style.display = 'block';
+    }
+  }
   function combinePhoneNumber() {
-    // Capturar los valores del código del país y del número de teléfono
     var countryCode = document.getElementById('countryCode').value;
     var phoneNumber = document.getElementById('phoneNumber').value;
-    // Concatenar ambos valores en el formato deseado
     var fullPhoneNumber = countryCode + ' ' + phoneNumber;
-    // Asignar el valor combinado al campo 'telefono'
     document.getElementById('telefono').value = fullPhoneNumber;
-    // Opcional: Imprimir el resultado en consola para verificar
-    //console.log('Número combinado:', fullPhoneNumber);
   }
   document.getElementById('btnContinuar').addEventListener('click', () => {
     document.getElementById('tab2').checked = true;
@@ -618,6 +554,76 @@
   document.getElementById('btnContinuar2').addEventListener('click', () => {
     document.getElementById('tab3').checked = true;
   });
+  document.getElementById('btnContinuar3').addEventListener('click', () => {
+    document.getElementById('tab4').checked = true;
+  });
+  document.getElementById('btnContinuar4').addEventListener('click', () => {
+    document.getElementById('tab5').checked = true;
+  });
+
+  // Obtener los elementos
+  const privadaRadio = document.getElementById('privada');
+  const publicaRadio = document.getElementById('publica');
+  const tiempoInput = document.getElementById('tiempo');
+  const profundidadInput = document.getElementById('profundidad');
+  const profundidad2Input = document.getElementById('profundidad-irregular');
+  const caudalmInput = document.getElementById('caudalm');
+  const caudallInput = document.getElementById('caudall');
+  var caudal=0;
+  function caudalrec(){
+    const volumenInput = document.getElementById('volumen');
+    const tiemp = parseFloat(tiempoInput.value);
+    const vol = parseFloat(volumenInput.value);
+    caudal= vol/tiemp;
+    caudalmInput.value = caudal.toFixed(3) + " m³/h";
+    caudallInput.value = ((caudal * 1000) / 3600).toFixed(3) + " L/s";
+  }
+  function radiotiempo() {
+    if (regularRadio.checked){
+      const prof = parseFloat(profundidadInput.value);
+      if (privadaRadio.checked) {
+        if (prof <= 0.6) {
+          tiempoInput.value = 4;
+        } else if (prof > 0.6 && prof <= 1.5) {
+          tiempoInput.value = 8;
+        } else if (prof > 1.5) {
+          tiempoInput.value = 8;
+        }
+      } else if (publicaRadio.checked) {
+        if (prof <= 0.6) {
+          tiempoInput.value = 2;
+        } else if (prof > 0.6 && prof <= 1.5) {
+          tiempoInput.value = 6;
+        } else if (prof > 1.5) {
+          tiempoInput.value = 9;
+        }
+      }
+    } else if (irregularRadio.checked){
+      const prof = parseFloat(profundidad2Input.value);
+      if (privadaRadio.checked) {
+        if (prof <= 0.6) {
+          tiempoInput.value = 4;
+        } else if (prof > 0.6 && prof <= 1.5) {
+          tiempoInput.value = 8;
+        } else if (prof > 1.5) {
+          tiempoInput.value = 8;
+        }
+      } else if (publicaRadio.checked) {
+        if (prof <= 0.6) {
+          tiempoInput.value = 2;
+        } else if (prof > 0.6 && prof <= 1.5) {
+          tiempoInput.value = 6;
+        } else if (prof > 1.5) {
+          tiempoInput.value = 9;
+        }
+      }
+    }
+    //caudalrec();
+  }
+  privadaRadio.addEventListener('change', radiotiempo);
+  publicaRadio.addEventListener('change', radiotiempo);
+  /*profundidadInput.addEventListener('input', radiotiempo);
+  profundidad2Input.addEventListener('input', radiotiempo);*/
   // Obtener los elementos
   const regularRadio = document.getElementById('regular');
   const irregularRadio = document.getElementById('irregular');
@@ -628,11 +634,45 @@
   const anchoRegular = document.getElementById('ancho');
   const profundidadIrregular = document.getElementById('profundidad-irregular');
   const longitudIrregular = document.getElementById('longitud');
+  //Obtener
+  function paso3() {
+    var largo = document.getElementById('largo').value;
+    var ancho = document.getElementById('ancho').value;
+    var longitud = document.getElementById('longitud').value;
+    var profundidad = document.getElementById('profundidad').value;
+    var profundidad2 = document.getElementById('profundidad-irregular').value;
+    if (regularRadio.checked) {
+      var area = largo*ancho;
+      var perimetro = (2*largo)+(2*ancho);
+      var volumen = largo*ancho*profundidad;
+      document.getElementById('area').value = area;
+      document.getElementById('perimetro').value = perimetro;
+      document.getElementById('volumen').value = volumen;
+      document.getElementById('prof').value = profundidad;
+    } else if (irregularRadio.checked) {
+      document.getElementById('perimetro').value = longitud;
+      document.getElementById('prof').value = profundidad2;
+    }
+  }
+    //Obtener
+    var caudalms=0;
+    var diametros=0;
+    var diametroi=0;
+    function paso5() {
+      caudalms=caudal/3600;
+      document.getElementById('caudalms').value = caudalms;
+      diametros = ((Math.sqrt((4 * caudalms) / (Math.PI * 1.8)))*1000).toFixed(3);
+      diametroi = ((Math.sqrt((4 * caudalms) / (Math.PI * 3)))*1000).toFixed(3);
+      document.getElementById('succion').value = diametros + " mm";
+      document.getElementById('impulsion').value = diametroi + " mm";
+      /*alert(diametros);
+      alert(diametroi);*/
+  }
   // Función para mostrar/ocultar campos según la selección
   function toggleFields() {
     if (regularRadio.checked) {
-      regularFields.style.display = 'flex';  // Mostrar campos para piscina regular
-      irregularFields.style.display = 'none';  // Ocultar campos para piscina irregular
+      regularFields.style.display = 'flex';
+      irregularFields.style.display = 'none';
       // Habilitar campos de Regular
       profundidadRegular.disabled = false;
       largoRegular.disabled = false;
@@ -641,8 +681,8 @@
       profundidadIrregular.disabled = true;
       longitudIrregular.disabled = true;
     } else if (irregularRadio.checked) {
-      regularFields.style.display = 'none';  // Ocultar campos para piscina regular
-      irregularFields.style.display = 'flex';  // Mostrar campos para piscina irregular
+      regularFields.style.display = 'none';
+      irregularFields.style.display = 'flex';
       // Habilitar campos de Irregular
       profundidadIrregular.disabled = false;
       longitudIrregular.disabled = false;
@@ -652,61 +692,8 @@
       anchoRegular.disabled = true;
     }
   }
-  // Escuchar los cambios en los radios
   regularRadio.addEventListener('change', toggleFields);
   irregularRadio.addEventListener('change', toggleFields);
-  // Inicializar el estado de los campos según la selección por defecto
   toggleFields();
 </script>
 @endsection
-                      <!--<div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir Piscina</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="message" class="alert alert-success" style="display: none;">Se añadió correctamente</div>
-                            <form action="{{ route('piscina.store') }}" method="POST" onsubmit="showLoader(); showMessage();">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="cliente" class="form-label">Cliente</label>
-                                    <input type="text" class="form-control" id="cliente" name="cliente" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pais" class="form-label">Pais</label>
-                                    <input type="text" class="form-control" id="pais" name="pais" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="telefono" class="form-label">Telefono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Tipo</label><br>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tipo" id="regular" value="Regular" checked>
-                                        <label class="form-check-label" for="regular">Regular</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tipo" id="irregular" value="Irregular">
-                                        <label class="form-check-label" for="irregular">Irregular</label>
-                                    </div>                                
-                                </div>
-                                <div class="mb-3">
-                                    <label for="profundidad" class="form-label">Profundidad</label>
-                                    <input type="number" class="form-control" id="profundidad" name="profundidad" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="largo" class="form-label">Largo</label>
-                                    <input type="number" class="form-control" id="largo" name="largo" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="ancho" class="form-label">Ancho</label>
-                                    <input type="number" class="form-control" id="ancho" name="ancho" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="longitud" class="form-label">Longitud</label>
-                                    <input type="number" class="form-control" id="longitud" name="longitud" required>
-                                </div>
-                                <button type="submit" class="btn btn-info">Añadir <i class="fa-solid fa-plus"></i></button>
-                            </form>
-                        </div>
-                    </div>-->
