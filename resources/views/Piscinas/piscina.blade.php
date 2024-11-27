@@ -266,7 +266,7 @@
                       <option value="BH">Bahrein</option><option value="BD">Bangladesh</option><option value="BB">Barbados</option>
                       <option value="BE">Bélgica</option><option value="BZ">Belice</option><option value="BJ">Benin</option>
                       <option value="BM">Bermudas</option><option value="BY">Bielorrusia</option><option value="MM">Birmania</option>
-                      <option value="BO">Bolivia</option><option value="BA">Bosnia y Herzegovina</option><option value="BW">Botswana</option>
+                      <option value="BO" selected>Bolivia</option><option value="BA">Bosnia y Herzegovina</option><option value="BW">Botswana</option>
                       <option value="BR">Brasil</option><option value="BN">Brunei</option><option value="BG">Bulgaria</option>
                       <option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="BT">Bután</option>
                       <option value="CV">Cabo Verde</option><option value="KH">Camboya</option><option value="CM">Camerún</option>
@@ -278,7 +278,7 @@
                       <option value="CU">Cuba</option><option value="DK">Dinamarca</option><option value="DJ">Djibouti</option>
                       <option value="DM">Dominica</option><option value="EC">Ecuador</option><option value="EG">Egipto</option>
                       <option value="SV">El Salvador</option><option value="AE">Emiratos Árabes Unidos</option><option value="ER">Eritrea</option>
-                      <option value="SI">Eslovenia</option><option value="ES" selected>España</option><option value="US">Estados Unidos</option>
+                      <option value="SI">Eslovenia</option><option value="ES">España</option><option value="US">Estados Unidos</option>
                       <option value="EE">Estonia</option><option value="ET">Etiopía</option><option value="FJ">Fiji</option>
                       <option value="PH">Filipinas</option><option value="FI">Finlandia</option><option value="FR">Francia</option>
                       <option value="GA">Gabón</option><option value="GM">Gambia</option><option value="GE">Georgia</option>
@@ -350,7 +350,7 @@
                       <option value="+994">Azerbaiyán +994</option><option value="+1242">Bahamas +1242</option><option value="+973">Bahrein +973</option>
                       <option value="+880">Bangladesh +880</option><option value="+1246">Barbados +1246</option><option value="+32">Bélgica +32</option>
                       <option value="+501">Belice +501</option><option value="+229">Benin +229</option><option value="+1441">Bermudas +1441</option>
-                      <option value="+375">Bielorrusia +375</option><option value="+95">Birmania +95</option><option value="+591">Bolivia +591</option>
+                      <option value="+375">Bielorrusia +375</option><option value="+95">Birmania +95</option><option selected value="+591">Bolivia +591</option>
                       <option value="+387">Bosnia y Herzegovina +387</option><option value="+267">Botswana +267</option><option value="+55">Brasil +55</option>
                       <option value="+673">Brunei +673</option><option value="+359">Bulgaria +359</option><option value="+226">Burkina Faso +226</option>
                       <option value="+257">Burundi +257</option><option value="+975">Bután +975</option><option value="+238">Cabo Verde +238</option>
@@ -363,7 +363,7 @@
                       <option value="+45">Dinamarca +45</option><option value="+253">Djibouti +253</option><option value="+1767">Dominica +1767</option>
                       <option value="+593">Ecuador +593</option><option value="+20">Egipto +20</option><option value="+503">El Salvador +503</option>
                       <option value="+971">Emiratos Árabes Unidos +971</option><option value="+291">Eritrea +291</option><option value="+386">Eslovenia +386</option>
-                      <option value="+34" selected>España +34</option><option value="+1">Estados Unidos +1</option><option value="+593">Ecuador +593</option>
+                      <option value="+34">España +34</option><option value="+1">Estados Unidos +1</option><option value="+593">Ecuador +593</option>
                       <option value="+20">Egipto +20</option><option value="+503">El Salvador +503</option><option value="+971">Emiratos Árabes Unidos +971</option>
                       <option value="+291">Eritrea +291</option><option value="+386">Eslovenia +386</option><option value="+34" selected>España +34</option>
                       <option value="+1">Estados Unidos +1</option><option value="+372">Estonia +372</option><option value="+251">Etiopía +251</option>
