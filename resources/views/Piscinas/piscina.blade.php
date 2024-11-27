@@ -13,7 +13,9 @@
   .tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
   .tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
   .tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
-  .tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+  .tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6),
+  .tabset > input:nth-child(13):checked ~ .tab-panels > .tab-panel:nth-child(7),
+  .tabset > input:nth-child(15):checked ~ .tab-panels > .tab-panel:nth-child(8){
     display: block;
   }
   body {
@@ -236,6 +238,10 @@
             <!-- Tab 7 -->
             <input type="radio" name="tabset" id="tab7" aria-controls="paso7">
             <label for="tab7">Paso 7</label>
+            <!-- Tab 8 -->
+            <input type="radio" name="tabset" id="tab8" aria-controls="paso8">
+            <label for="tab8">Paso 8</label>
+
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
               <div class="tab-panels">
                 <section id="marzen" class="tab-panel">
@@ -420,14 +426,14 @@
                 <section id="rauchbier" class="tab-panel">
                   <h2>Tipo de Piscina</h2>
                   <div class="row mb-3">
-                    <div class="col-12 col-md-6">
+                    <div class="col-6 col-md-6">
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="tipo" id="regular" value="regular" checked>
                         <label class="form-check-label" for="regular">Regular</label>
                       </div>
                       <img src="https://3dwarehouse.sketchup.com/warehouse/v1.0/content/public/1fd3d2bd-be01-4477-bbe4-55bf8f2dcd21" alt="" class="img-fluid">
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-6 col-md-6">
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="tipo" id="irregular" value="irregular">
                         <label class="form-check-label" for="irregular">Irregular</label>
@@ -459,6 +465,7 @@
                       <input type="number" class="form-control" id="longitud" name="longitud" step="0" min="0" placeholder="0" disabled>
                     </div>
                   </div>
+                  <button type="button" aria-controls="marzen" class="btn btn-info" id="btnVolver">Volver <i class="fa-solid fa-plus"></i></button>
                   <button onclick="paso3()" type="button" aria-controls="dunkles" class="btn btn-info" id="btnContinuar2">Continuar <i class="fa-solid fa-plus"></i></button>
                 </section>
                 <section id="dunkles" class="tab-panel">
@@ -477,6 +484,7 @@
                   </div>
                   <input type="hidden" id="telefono" name="telefono">
                   <input type="hidden" id="caudalms" name="caudal">
+                  <button type="button" aria-controls="rauchbier" class="btn btn-info" id="btnVolver2">Volver <i class="fa-solid fa-plus"></i></button>
                   <button onclick="radiotiempo()" type="button" aria-controls="paso4" class="btn btn-info" id="btnContinuar3">Continuar <i class="fa-solid fa-plus"></i></button>
                 </section>
                 <section id="paso4" class="tab-panel" style="position: relative;">
@@ -488,13 +496,13 @@
                   </div>
                   <div class="mb-3 row">
                     <h5>Tipología</h5>
-                    <div class="col-12 col-md-6">
+                    <div class="col-6 col-md-6">
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="tipologia" id="privada" value="privada" checked>
                           <label class="form-check-label" for="privada">Privada</label>
                         </div>
                       </div>
-                      <div class="col-12 col-md-6">
+                      <div class="col-6 col-md-6">
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="tipologia" id="publica" value="publica">
                           <label class="form-check-label" for="publica">Pública</label>
@@ -523,6 +531,7 @@
                       <input type="button" value="Calcular" onclick="caudalrec()" class="form-control btn btn-info" id="calcaudal" name="calcaudal">
                     </div>
                   </div>
+                  <button type="button" aria-controls="dunkles" class="btn btn-info" id="btnVolver3">Volver <i class="fa-solid fa-plus"></i></button>
                   <button type="button" onclick="paso5()" aria-controls="paso5" class="btn btn-info" id="btnContinuar4">Continuar <i class="fa-solid fa-plus"></i></button>
                 </section>
                 <section id="paso5" class="tab-panel" style="position: relative;">
@@ -548,84 +557,140 @@
                     <div class="col-12 col-md-6">
                       <label for="succion" class="form-label">Succión</label>
                       <div class="row">
-                        <div class="col-4 col-md-4">
+                        <div class="col-5 col-md-5">
                           <select id="succions" name="succion" class="form-select" onchange="validateRange()">
+                            <option value="" disabled selected>Selecciona una opción</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
                             <option value="40">40</option>
                             <option value="60">60</option>
                           </select>
                         </div>
-                        <div id="feedback" class="indicator col-8 col-md-8"></div>
+                        <div id="feedback" class="indicator col-7 col-md-7"></div>
                       </div>
                     </div>
                     <div class="col-12 col-md-6">
                       <label for="impulsion" class="form-label">Impulsión</label>
                       <div class="row">
-                        <div class="col-4 col-md-4">
+                        <div class="col-5 col-md-5">
                           <select id="impulsions" name="impulsion" class="form-select" onchange="validateRangeImp()">
+                            <option value="" disabled selected>Selecciona una opción</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
                             <option value="40">40</option>
                             <option value="60">60</option>
                           </select>
                         </div>
-                        <div id="feedback2" class="indicator col-8 col-md-8"></div>
+                        <div id="feedback2" class="indicator col-7 col-md-7"></div>
                       </div>
                     </div>
                   </div>
+                  <button type="button" aria-controls="paso4" class="btn btn-info" id="btnVolver4">Volver <i class="fa-solid fa-plus"></i></button>
                   <button type="button" onclick="paso6()" aria-controls="paso6" class="btn btn-info" id="btnContinuar5">Continuar <i class="fa-solid fa-plus"></i></button>
                 </section>
                 <section id="paso6" class="tab-panel">
                   <h2>Número de Retornos, Skimmer y Dren de fondo</h2>
-                  <div class="row">
+                  <div class="row mb-3">
                     <label for="retorno" class="form-label">Retorno</label>
                     <div class="col-5 col-md-4">
                       <img style="height: 120px " src="{{ asset('assets/images/retorno.jpg') }}" alt="" class="img-fluid">
                     </div>
                     <div class="col-7 col-md-8">
                         <label for="retornom" class="form-label">Nº de Retornos mínimo</label>
-                        <input type="number" class="form-control" id="retornom" step="0" min="0" placeholder="0" required>
+                        <input type="number" readonly class="form-control" id="retornom" step="0" min="0" placeholder="0" required>
                         <label for="retorno" class="form-label">Asumir Nº de Retornos</label>
                         <input type="number" class="form-control" id="retorno" name="retorno" step="0" min="0" placeholder="0" required>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row mb-3">
                     <label for="retorno" class="form-label">Skimmer</label>
                     <div class="col-5 col-md-4">
                       <img style="height: 120px " src="{{ asset('assets/images/skimmer.jpg') }}" alt="" class="img-fluid">
-                    
                     </div>
                     <div class="col-7 col-md-8">
                         <label for="skimmerm" class="form-label">Nº de Skimmer mínimo</label>
-                        <input type="number" class="form-control" id="skimmerm" step="0" min="0" placeholder="0" required>
+                        <input type="number" readonly class="form-control" id="skimmerm" step="0" min="0" placeholder="0" required>
                         <label for="skimmer" class="form-label">Asumir Nº de Skimmer</label>
                         <input type="number" class="form-control" id="skimmer" name="skimmer" step="0" min="0" placeholder="0" required>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row mb-3">
                     <label for="retorno" class="form-label">Dren de Fondo</label>
                     <div class="col-5 col-md-4">
                       <img style="height: 120px " src="{{ asset('assets/images/drenfondo.png') }}" alt="" class="img-fluid">
                     </div>
                     <div class="col-7 col-md-8">
                         <label for="drenm" class="form-label">Nº de Dren mínimo</label>
-                        <input type="number" class="form-control" id="drenm" step="0" min="0" placeholder="0" required>
+                        <input type="number" readonly class="form-control" id="drenm" step="0" min="0" placeholder="0" required>
                         <label for="dren" class="form-label">Asumir Nº de Dren</label>
                         <input type="number" class="form-control" id="dren" name="dren" step="0" min="0" placeholder="0" required>
                     </div>
                   </div>
+                  <button type="button" aria-controls="paso5" class="btn btn-info" id="btnVolver5">Volver <i class="fa-solid fa-plus"></i></button>
                   <button type="button" onclick="paso7()" aria-controls="paso7" class="btn btn-info" id="btnContinuar6">Continuar <i class="fa-solid fa-plus"></i></button>
-                  <button type="submit" class="btn btn-info">Añadir <i class="fa-solid fa-plus"></i></button>
-
                 </section>
-                <section id="paso7" class="tab-panel">
+                <section id="paso7" class="tab-panel" style="position: relative;">
                   <h2>Filtro de Arena</h2>
-                  <div class="mb-3">
-                    <label for="area" class="form-label">Área (m²)</label>
-                    <input type="number" class="form-control" id="area" name="area" step="0.01" min="0" placeholder="0,00" required>
+                  <div class="help-icon" onclick="toggleHelpTooltip('tooltip3')">?</div>
+                  <div id="tooltip3" class="help-tooltip">
+                    <h4>Tabla de Selección de Filtros</h4>
+                    <img style="width: 730px" src="{{ asset('assets/images/filtrosres.png') }}" alt="velocidades">
                   </div>
-                  <button onclick="radiotiempo()" type="button" aria-controls="paso4" class="btn btn-info" id="btnContinuar3">Continuar <i class="fa-solid fa-plus"></i></button>
+                  <div class="row mt-3 mb-3">
+                    <div class="col-6 col-md-6">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="forma" id="forma1" value="forma1" checked>
+                        <label class="form-check-label" for="forma1">Primera Forma</label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-6">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="forma" id="forma2" value="forma2">
+                        <label class="form-check-label" for="forma2">Segunda Forma</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="forma1-fields" class="row mt-3 mb-3">
+                    <h5>1º Forma</h5>
+                    <p>Adoptar el área de filtrado del fabricante y verificar la velocidad de filtrado</p>
+                    <div class="col-md-4 col-6">
+                      <label for="areaf" class="form-label">Área de Filtrado (m²)</label>
+                      <input type="number" class="form-control" id="areaf" step="0.000" min="0.000" placeholder="0.000">
+                    </div>
+                    <div class="col-md-4 col-6">
+                      <label for="velocidadf" class="form-label">Velocidad de Filtrado (m/h)</label>
+                      <input type="number" readonly class="form-control" id="velocidadf" step="0" min="0" placeholder="0">
+                    </div>
+                    <div class="col-md-4 col-6">
+                      <label for="filtro" class="form-label">Modelo</label>
+                      <input type="text" class="form-control" id="filtro" name="filtro">
+                    </div>
+                  </div>
+                  <div id="forma2-fields" class="row mb-3">
+                    <h5>2º Forma</h5>
+                    <p>Adoptar la velocidad de filtrado de acuerdo al reglamento y determinar el diámetro del filtro</p>
+                    <div class="col-md-4 col-6">
+                      <label for="velocidadf2" class="form-label">Velocidad de Filtrado (m/h)</label>
+                      <input type="number" class="form-control" id="velocidadf2" step="0" min="0" placeholder="0">
+                    </div>
+                    <div class="col-md-4 col-6">
+                      <label for="diametrof" class="form-label">Diámetro del Filtro (mm)</label>
+                      <input type="number" readonly class="form-control" id="diametrof" step="0.00" min="0.00" placeholder="0.00">
+                    </div>
+                    <div class="col-md-4 col-6">
+                      <label for="filtro2" class="form-label">Modelo</label>
+                      <input type="text" class="form-control" id="filtro2" name="filtro">
+                    </div>
+                  </div>
+                  <button type="button" aria-controls="paso6" class="btn btn-info" id="btnVolver6">Volver <i class="fa-solid fa-plus"></i></button>
+                  <button type="button" aria-controls="paso7" class="btn btn-info" id="btnContinuar7">Continuar <i class="fa-solid fa-plus"></i></button>
+                  <button type="submit" class="btn btn-info">Añadir <i class="fa-solid fa-plus"></i></button>
+                </section>
+                <section id="paso8" class="tab-panel">
+                  <h2>Pérdidas de cargas en tuberías y accesorios</h2>
+                  <div class="row mb-3">
+                  </div>
+                  <button type="button" aria-controls="paso7" class="btn btn-info" id="btnVolver7">Volver <i class="fa-solid fa-plus"></i></button>
                 </section>
               </div>
             </div>
@@ -637,6 +702,50 @@
 @endsection
 @section('js')
 <script>
+  //CONTINUAR
+  document.getElementById('btnContinuar').addEventListener('click', () => {
+    document.getElementById('tab2').checked = true;
+  });
+  document.getElementById('btnContinuar2').addEventListener('click', () => {
+    document.getElementById('tab3').checked = true;
+  });
+  document.getElementById('btnContinuar3').addEventListener('click', () => {
+    document.getElementById('tab4').checked = true;
+  });
+  document.getElementById('btnContinuar4').addEventListener('click', () => {
+    document.getElementById('tab5').checked = true;
+  });
+  document.getElementById('btnContinuar5').addEventListener('click', () => {
+    document.getElementById('tab6').checked = true;
+  });
+  document.getElementById('btnContinuar6').addEventListener('click', () => {
+    document.getElementById('tab7').checked = true;
+  });
+  document.getElementById('btnContinuar7').addEventListener('click', () => {
+    document.getElementById('tab8').checked = true;
+  });
+  //VOLVER
+  document.getElementById('btnVolver').addEventListener('click', () => {
+    document.getElementById('tab1').checked = true;
+  });
+  document.getElementById('btnVolver2').addEventListener('click', () => {
+    document.getElementById('tab2').checked = true;
+  });
+  document.getElementById('btnVolver3').addEventListener('click', () => {
+    document.getElementById('tab3').checked = true;
+  });
+  document.getElementById('btnVolver4').addEventListener('click', () => {
+    document.getElementById('tab4').checked = true;
+  });
+  document.getElementById('btnVolver5').addEventListener('click', () => {
+    document.getElementById('tab5').checked = true;
+  });
+  document.getElementById('btnVolver6').addEventListener('click', () => {
+    document.getElementById('tab6').checked = true;
+  });
+  document.getElementById('btnVolver7').addEventListener('click', () => {
+    document.getElementById('tab7').checked = true;
+  });
   function validateRange() {
       const select = document.getElementById('succions');
       const feedback = document.getElementById('feedback');
@@ -693,25 +802,6 @@
     var fullPhoneNumber = countryCode + ' ' + phoneNumber;
     document.getElementById('telefono').value = fullPhoneNumber;
   }
-  document.getElementById('btnContinuar').addEventListener('click', () => {
-    document.getElementById('tab2').checked = true;
-  });
-  document.getElementById('btnContinuar2').addEventListener('click', () => {
-    document.getElementById('tab3').checked = true;
-  });
-  document.getElementById('btnContinuar3').addEventListener('click', () => {
-    document.getElementById('tab4').checked = true;
-  });
-  document.getElementById('btnContinuar4').addEventListener('click', () => {
-    document.getElementById('tab5').checked = true;
-  });
-  document.getElementById('btnContinuar5').addEventListener('click', () => {
-    document.getElementById('tab6').checked = true;
-  });
-  document.getElementById('btnContinuar6').addEventListener('click', () => {
-    document.getElementById('tab7').checked = true;
-  });
-
   // Obtener los elementos
   const privadaRadio = document.getElementById('privada');
   const publicaRadio = document.getElementById('publica');
@@ -853,5 +943,60 @@
   regularRadio.addEventListener('change', toggleFields);
   irregularRadio.addEventListener('change', toggleFields);
   toggleFields();
+
+  // Obtener los elementos
+  const forma1radio = document.getElementById('forma1');
+  const forma2radio = document.getElementById('forma2');
+  const forma1Fields = document.getElementById('forma1-fields');
+  const forma2Fields = document.getElementById('forma2-fields');
+
+  const areaf = document.getElementById('areaf');
+  const velocidadf = document.getElementById('velocidadf');
+  const filtro = document.getElementById('filtro');
+
+  const velocidadf2 = document.getElementById('velocidadf2');
+  const diametrof = document.getElementById('diametrof');
+  const filtro2 = document.getElementById('filtro2');
+
+  // Función para mostrar/ocultar campos según la selección
+  function toggleFields2() {
+    if (forma1radio.checked) {
+      forma1Fields.style.display = 'flex';
+      forma2Fields.style.display = 'none';
+      // Habilitar campos de Regular
+      areaf.disabled = false;
+      velocidadf.disabled = false;
+      filtro.disabled = false;
+      // Deshabilitar campos de Irregular
+      velocidadf2.disabled = true;
+      diametrof.disabled = true;
+      filtro2.disabled = true;
+    } else if (forma2radio.checked) {
+      forma1Fields.style.display = 'none';
+      forma2Fields.style.display = 'flex';
+      // Habilitar campos de Irregular
+      velocidadf2.disabled = false;
+      diametrof.disabled = false;
+      filtro2.disabled = false;
+      // Deshabilitar campos de Regular
+      areaf.disabled = true;
+      velocidadf.disabled = true;
+      filtro.disabled = true;
+    }
+  }
+  forma1radio.addEventListener('change', toggleFields2);
+  forma2radio.addEventListener('change', toggleFields2);
+  toggleFields2();
+
+  function v_filtrado(){
+    var vel = caudal/areaf.value;
+    document.getElementById('velocidadf').value = vel;
+  }
+  areaf.addEventListener('input', v_filtrado);
+  function d_filtro(){
+    var d_fil= ((Math.sqrt((4 * caudal) / (Math.PI * velocidadf2.value)))*1000).toFixed(2);
+    document.getElementById('diametrof').value = d_fil;
+  }
+  velocidadf2.addEventListener('input', d_filtro);
 </script>
 @endsection
