@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('filtros', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
-            $table->string('nombre');
-            $table->integer('cantidad');
+            $table->string('modelo');
+            $table->string('diametro');
+            $table->integer('area');
             $table->integer('velocidad');
-            $table->integer('areafiltrado');
-            $table->integer('diametro');
+            $table->integer('caudalf');
             $table->timestamps();
         });
     }

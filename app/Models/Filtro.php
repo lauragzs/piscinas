@@ -10,6 +10,6 @@ class Filtro extends Model
     use HasFactory;
     protected $table="filtros";
     protected $primaryKey="id";
-    protected $fillable=['codigo','nombre', 'cantidad', 'velocidad','areafiltrado','diametro'];
+    protected $fillable=['modelo','diametro', 'area', 'velocidad','caudalf'];
     protected $hidden=['id'];
 }

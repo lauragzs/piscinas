@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PiscinaController;
+use App\Http\Controllers\FiltroController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('piscina', PiscinaController::class);
+    Route::resource('piscina', FiltroController::class);
 });
 
 require __DIR__.'/auth.php';

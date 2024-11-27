@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Piscina;
+use App\Models\Accesorio;
+use App\Models\Filtro;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class PiscinaController extends Controller
@@ -18,8 +21,10 @@ class PiscinaController extends Controller
     public function index()
     {
         //
-        $piscinas=Piscina::all();
-        return view('Piscinas.piscina', ['piscinas'=>$piscinas]);
+        $accesorios=Accesorio::all();
+        $filtros=Filtro::all();
+        $piscinas=Piscina::all();    
+        return view('Piscinas.piscina',['piscinas'=>$piscinas,'filtros'=>$filtros,'accesorios'=>$accesorios]);
     }
 
     /**
