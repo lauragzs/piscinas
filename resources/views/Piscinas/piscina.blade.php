@@ -67,46 +67,59 @@
   *:after {
     box-sizing: border-box;
   }
-  /* Icono de ayuda */
-.help-icon {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  width: 30px;
-  height: 30px;
-  background-color: #007bff;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-/* Ventana emergente */
-.help-tooltip {
-  display: none;
-  position: absolute;
-  top: 60px;
-  right: 20px;
-  background-color: white;
-  color: #333;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  width: auto;
-  z-index: 10;
-}
-.help-tooltip img {
-  display: block; /* Elimina espacios blancos debajo de la imagen */
-}
-
-.help-tooltip h4 {
-  margin: 0 0 10px; /* Espacio debajo del título */
-}
+  .help-icon {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 30px;
+    height: 30px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  .help-tooltip {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: auto;
+    z-index: 10;
+  }
+  .help-tooltip img {
+    display: block;
+  }
+  .help-tooltip h4 {
+    margin: 0 0 10px;
+  }
+  .indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .green {
+    background-color: green;
+  }
+  .red {
+    background-color: red;
+  }
 </style>
 @endsection
 @section('name')
@@ -217,6 +230,12 @@
             <!-- Tab 5 -->
             <input type="radio" name="tabset" id="tab5" aria-controls="paso5">
             <label for="tab5">Paso 5</label>
+            <!-- Tab 6 -->
+            <input type="radio" name="tabset" id="tab6" aria-controls="paso6">
+            <label for="tab6">Paso 6</label>
+            <!-- Tab 7 -->
+            <input type="radio" name="tabset" id="tab7" aria-controls="paso7">
+            <label for="tab7">Paso 7</label>
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
               <div class="tab-panels">
                 <section id="marzen" class="tab-panel">
@@ -468,6 +487,7 @@
                     <img src="{{ asset('assets/images/tipologia.png') }}" alt="velocidades" style="width: 420px">
                   </div>
                   <div class="mb-3 row">
+                    <h5>Tipología</h5>
                     <div class="col-12 col-md-6">
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="tipologia" id="privada" value="privada" checked>
@@ -513,16 +533,99 @@
                     <img style="width: 250px" src="{{ asset('assets/images/succionimpulsion.png') }}" alt="velocidades">
                   </div>
                   <div class="mb-3 row">
+                    <h5>Diámetros mínimos recomendados</h5>
                     <div class="col-12 col-md-6">
                       <label for="succion" class="form-label">Succión</label>
-                      <input type="text" class="form-control" id="succion" name="succion" readonly>
+                      <input type="text" class="form-control" id="succion" readonly>
                     </div>
                     <div class="col-12 col-md-6">
                       <label for="impulsion" class="form-label">Impulsión</label>
-                      <input type="text" class="form-control" id="impulsion" name="impulsion" readonly>
+                      <input type="text" class="form-control" id="impulsion"  readonly>
                     </div>
                   </div>
+                  <div class="mb-3 row">
+                    <h5>Asumir diámetros</h5>
+                    <div class="col-12 col-md-6">
+                      <label for="succion" class="form-label">Succión</label>
+                      <div class="row">
+                        <div class="col-4 col-md-4">
+                          <select id="succions" name="succion" class="form-select" onchange="validateRange()">
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="60">60</option>
+                          </select>
+                        </div>
+                        <div id="feedback" class="indicator col-8 col-md-8"></div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="impulsion" class="form-label">Impulsión</label>
+                      <div class="row">
+                        <div class="col-4 col-md-4">
+                          <select id="impulsions" name="impulsion" class="form-select" onchange="validateRangeImp()">
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="60">60</option>
+                          </select>
+                        </div>
+                        <div id="feedback2" class="indicator col-8 col-md-8"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" onclick="paso6()" aria-controls="paso6" class="btn btn-info" id="btnContinuar5">Continuar <i class="fa-solid fa-plus"></i></button>
+                </section>
+                <section id="paso6" class="tab-panel">
+                  <h2>Número de Retornos, Skimmer y Dren de fondo</h2>
+                  <div class="row">
+                    <label for="retorno" class="form-label">Retorno</label>
+                    <div class="col-5 col-md-4">
+                      <img style="height: 120px " src="{{ asset('assets/images/retorno.jpg') }}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <label for="retornom" class="form-label">Nº de Retornos mínimo</label>
+                        <input type="number" class="form-control" id="retornom" step="0" min="0" placeholder="0" required>
+                        <label for="retorno" class="form-label">Asumir Nº de Retornos</label>
+                        <input type="number" class="form-control" id="retorno" name="retorno" step="0" min="0" placeholder="0" required>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="retorno" class="form-label">Skimmer</label>
+                    <div class="col-5 col-md-4">
+                      <img style="height: 120px " src="{{ asset('assets/images/skimmer.jpg') }}" alt="" class="img-fluid">
+                    
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <label for="skimmerm" class="form-label">Nº de Skimmer mínimo</label>
+                        <input type="number" class="form-control" id="skimmerm" step="0" min="0" placeholder="0" required>
+                        <label for="skimmer" class="form-label">Asumir Nº de Skimmer</label>
+                        <input type="number" class="form-control" id="skimmer" name="skimmer" step="0" min="0" placeholder="0" required>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="retorno" class="form-label">Dren de Fondo</label>
+                    <div class="col-5 col-md-4">
+                      <img style="height: 120px " src="{{ asset('assets/images/drenfondo.png') }}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <label for="drenm" class="form-label">Nº de Dren mínimo</label>
+                        <input type="number" class="form-control" id="drenm" step="0" min="0" placeholder="0" required>
+                        <label for="dren" class="form-label">Asumir Nº de Dren</label>
+                        <input type="number" class="form-control" id="dren" name="dren" step="0" min="0" placeholder="0" required>
+                    </div>
+                  </div>
+                  <button type="button" onclick="paso7()" aria-controls="paso7" class="btn btn-info" id="btnContinuar6">Continuar <i class="fa-solid fa-plus"></i></button>
                   <button type="submit" class="btn btn-info">Añadir <i class="fa-solid fa-plus"></i></button>
+
+                </section>
+                <section id="paso7" class="tab-panel">
+                  <h2>Filtro de Arena</h2>
+                  <div class="mb-3">
+                    <label for="area" class="form-label">Área (m²)</label>
+                    <input type="number" class="form-control" id="area" name="area" step="0.01" min="0" placeholder="0,00" required>
+                  </div>
+                  <button onclick="radiotiempo()" type="button" aria-controls="paso4" class="btn btn-info" id="btnContinuar3">Continuar <i class="fa-solid fa-plus"></i></button>
                 </section>
               </div>
             </div>
@@ -534,6 +637,48 @@
 @endsection
 @section('js')
 <script>
+  function validateRange() {
+      const select = document.getElementById('succions');
+      const feedback = document.getElementById('feedback');
+      const value = parseInt(select.value);
+      var caudalms=(caudal/3600);
+      var verificar = (4*caudalms)/(Math.PI*(Math.pow((value/1000), 2)));
+      //alert(verificar);
+      feedback.innerHTML = '';
+      const circle = document.createElement('span');
+      circle.classList.add('circle');
+      const message = document.createElement('span');
+      if (verificar<=1.8) {
+        circle.classList.add('green');
+        message.textContent = 'Aceptable según el rango';
+      } else {
+        circle.classList.add('red');
+        message.textContent = 'Fuera del rango aceptable';
+      }
+      feedback.appendChild(circle);
+      feedback.appendChild(message);/**/
+    }
+    function validateRangeImp() {
+      const select = document.getElementById('impulsions');
+      const feedback = document.getElementById('feedback2');
+      const value = parseInt(select.value);
+      var caudalms=(caudal/3600);
+      var verificar = (4*caudalms)/(Math.PI*(Math.pow((value/1000), 2)));
+      //alert(verificar);
+      feedback.innerHTML = '';
+      const circle = document.createElement('span');
+      circle.classList.add('circle');
+      const message = document.createElement('span');
+      if (verificar<=3) {
+        circle.classList.add('green');
+        message.textContent = 'Aceptable según el rango';
+      } else {
+        circle.classList.add('red');
+        message.textContent = 'Fuera del rango aceptable';
+      }
+      feedback.appendChild(circle);
+      feedback.appendChild(message);
+    }
   function toggleHelpTooltip(id) {
     const tooltip = document.getElementById(id);
     if (tooltip.style.display === 'block') {
@@ -559,6 +704,12 @@
   });
   document.getElementById('btnContinuar4').addEventListener('click', () => {
     document.getElementById('tab5').checked = true;
+  });
+  document.getElementById('btnContinuar5').addEventListener('click', () => {
+    document.getElementById('tab6').checked = true;
+  });
+  document.getElementById('btnContinuar6').addEventListener('click', () => {
+    document.getElementById('tab7').checked = true;
   });
 
   // Obtener los elementos
@@ -667,6 +818,13 @@
       document.getElementById('impulsion').value = diametroi + " mm";
       /*alert(diametros);
       alert(diametroi);*/
+  }
+  function paso6(){
+    var area = document.getElementById('area').value;
+    document.getElementById('skimmerm').value = area/50;
+    document.getElementById('drenm').value = 2;
+    document.getElementById('retornom').value = (area*2)/50;
+
   }
   // Función para mostrar/ocultar campos según la selección
   function toggleFields() {
