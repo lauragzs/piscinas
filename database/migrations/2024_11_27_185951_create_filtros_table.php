@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('modelo');
             $table->string('diametro');
-            $table->integer('area');
+            $table->integer('areaf');
             $table->integer('velocidad');
             $table->integer('caudalf');
             $table->timestamps();

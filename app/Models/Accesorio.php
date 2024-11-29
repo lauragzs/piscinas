@@ -10,6 +10,6 @@ class Accesorio extends Model
     use HasFactory;
     protected $table="accesorios";
     protected $primaryKey="id";
-    protected $fillable=['codigo','nombre', 'cantidad', 'descripcion'];
+    protected $fillable=['codigo','nombre', 'foto', 'descripcion'];
     protected $hidden=['id'];
 }

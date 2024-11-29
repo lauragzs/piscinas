@@ -3,7 +3,7 @@
 
 @endsection
 @section('name')
-  <a href="{{route('dashboard')}}">>>> Filtros</a>
+  <a href="{{route('dashboard')}}">>>> Accesorios</a>
 @endsection
 @section('content')
 <!-- Row start -->
@@ -11,7 +11,7 @@
     <div class="col-xxl-12">
       <div class="card mb-4">
         <div class="card-header">
-          <h5 class="card-title">Listado de Filtros de Arena</h5>
+          <h5 class="card-title">Listado de Accesorios</h5>
         </div>
         <div class="card-body">
           <a data-bs-toggle="modal" data-bs-target="#ModalAñadir" class="btn btn-info" role="button">Añadir <i class="fa-regular fa-square-plus"></i></a>
@@ -19,34 +19,26 @@
             <table class="table table-striped align-middle">
               <thead>
                 <tr>
-                  <th>Modelo</th>
-                  <th>Diámetro Interior</th>
-                  <th>Área de Filtrado</th>
-                  <th>Velocidad de Filtrado</th>
-                  <th>Caudal Filtrado</th>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Foto</th>
+                  <th>Descripcion</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($filtros as $filtros)
+                @foreach($accesorios as $accesorios)
                   <tr>
                     <td>
-                      <div class="d-flex flex-row align-items-center">
-                        <p class="m-0">{{ $filtros->modelo }}</p>
-                      </div>
+                      <p class="m-0">{{ $accesorios->codigo }}</p>
                     </td>
                     <td>
-                      <div class="d-flex flex-row align-items-center">
-                        <p class="m-0">{{ $filtros->diametro }}</p>
-                      </div>
+                      <span class="badge bg-primary">{{ $accesorios->nombre }}</span>
                     </td>
                     <td>
-                      <p class="m-0">{{ $filtros->areaf }}</p>
+                    <img src="{{ $accesorios->foto }}" class="img-5x" alt="Foto" />
                     </td>
                     <td>
-                      <span class="badge bg-primary">{{ $filtros->velocidad }}</span>
-                    </td>
-                    <td>
-                      <p class="m-0">{{ $filtros->caudalf }}</p>
+                      <p class="m-0">{{ $accesorios->descripcion }}</p>
                     </td>
                   </tr>
                 @endforeach
@@ -63,12 +55,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir Filtro</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir Accesorio</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="message" class="alert alert-success" style="display: none;">Se añadió correctamente</div>
-                    <form action="{{ route('filtro.store') }}" method="POST" onsubmit="showLoader(); setTimeout(hideLoader, 7000); showMessage();">
+                    <form action="{{ route('accesorio.store') }}" method="POST"  enctype="multipart/form-data" onsubmit="showLoader(); setTimeout(hideLoader, 7000); showMessage();">
                         <!-- Carga -->
                         <div id="loader" class="overlay" style="display: none;">
                             <div class="spinner-border text-primary" role="status">
@@ -77,24 +69,23 @@
                         </div>
                         @csrf
                         <div class="mb-3">
-                            <label for="modelo" class="form-label">Modelo</label>
-                            <input type="text" class="form-control" id="modelo" name="modelo" required>
+                            <label for="codigo" class="form-label">Código</label>
+                            <input type="text" class="form-control" id="codigo" name="codigo" required>
                         </div>
                         <div class="mb-3">
-                            <label for="diametro" class="form-label">Diámetro de Interior</label>
-                            <input type="text" class="form-control" id="diametro" name="diametro" required>
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="foto"><strong>Seleccionar Foto</strong></label>
+                            <input type="file" id="foto" name="foto" accept="image/png, image/jpeg" class="form-control" style="width: 70%;">
+                        </div>
+                        <div id="contenedorVistaPrevia" style="display: none;">
+                            <img id="vistaPrevia" src="#" alt="Vista previa de la imagen" style="max-width: 200px; max-height: 200px;">
                         </div>
                         <div class="mb-3">
-                            <label for="area" class="form-label">Área de Filtrado</label>
-                            <input type="text" class="form-control" id="area" name="areaf" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="velocidad" class="form-label">Velocidad de Filtrado</label>
-                            <input type="text" class="form-control" id="velocidad" name="velocidad" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="caudalf" class="form-label">Caudal Filtrado</label>
-                            <input type="text" class="form-control" id="caudalf" name="caudalf" required>
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Añadir <i class="fa-solid fa-plus"></i></button>
                     </form>
@@ -114,5 +105,24 @@
     function showMessage() {
         document.getElementById('message').style.display = 'block';
     }
+</script>
+<script>
+    const inputFoto = document.getElementById('foto');
+    const vistaPrevia = document.getElementById('vistaPrevia');
+    const contenedorVistaPrevia = document.getElementById('contenedorVistaPrevia');
+
+    inputFoto.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const lector = new FileReader();
+            lector.onload = function(e) {
+                vistaPrevia.src = e.target.result;
+                contenedorVistaPrevia.style.display = 'block';
+            }
+            lector.readAsDataURL(this.files[0]);
+        } else {
+            vistaPrevia.src = '#';
+            contenedorVistaPrevia.style.display = 'none';
+        }
+    });
 </script>
 @endsection

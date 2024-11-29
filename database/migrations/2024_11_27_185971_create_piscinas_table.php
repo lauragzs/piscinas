@@ -31,10 +31,6 @@ return new class extends Migration
             $table->string('caudal');
             $table->string('succion');
             $table->string('impulsion');
-            $table->unsignedBigInteger('accesorio_id');
-                $table->foreign('accesorio_id')->references('id')->on('accesorios');
-            $table->unsignedBigInteger('filtro_id');
-                $table->foreign('filtro_id')->references('id')->on('filtros');
             $table->timestamps();
         });
     }

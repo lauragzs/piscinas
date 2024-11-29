@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('codigo');
             $table->string('nombre');
-            $table->integer('cantidad');
+            $table->string('foto');
             $table->string('descripcion');
             $table->timestamps();
         });

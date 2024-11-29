@@ -591,39 +591,52 @@
                 <section id="paso6" class="tab-panel">
                   <h2>Número de Retornos, Skimmer y Dren de fondo</h2>
                   <div class="row mb-3">
-                    <label for="retorno" class="form-label">Retorno</label>
-                    <div class="col-5 col-md-4">
-                      <img style="height: 120px " src="{{ asset('assets/images/retorno.jpg') }}" alt="" class="img-fluid">
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <label for="retornom" class="form-label">Nº de Retornos mínimo</label>
-                        <input type="number" readonly class="form-control" id="retornom" step="0" min="0" placeholder="0" required>
-                        <label for="retorno" class="form-label">Asumir Nº de Retornos</label>
-                        <input type="number" class="form-control" id="retorno" name="retorno" step="0" min="0" placeholder="0" required>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="retorno" class="form-label">Skimmer</label>
-                    <div class="col-5 col-md-4">
-                      <img style="height: 120px " src="{{ asset('assets/images/skimmer.jpg') }}" alt="" class="img-fluid">
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <label for="skimmerm" class="form-label">Nº de Skimmer mínimo</label>
-                        <input type="number" readonly class="form-control" id="skimmerm" step="0" min="0" placeholder="0" required>
-                        <label for="skimmer" class="form-label">Asumir Nº de Skimmer</label>
-                        <input type="number" class="form-control" id="skimmer" name="skimmer" step="0" min="0" placeholder="0" required>
+                    <div class="col-md-3 col-6">
+                      <label for="pid_accesorio" class="form-label">Accesorio</label>
+                      <select class="form-select" name="accesorio_id[]" id="pid_accesorio">
+                        @foreach ($accesorio as $accesorio)
+                            <option value="{{ $accesorio->id }}" data-foto="{{ $accesorio->foto }}">
+                                {{ $accesorio->nombre }}
+                            </option>
+                        @endforeach
+                      </select>
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <label for="retorno" class="form-label">Dren de Fondo</label>
-                    <div class="col-5 col-md-4">
-                      <img style="height: 120px " src="{{ asset('assets/images/drenfondo.png') }}" alt="" class="img-fluid">
+                    <div class="col-4 col-md-3">
+                      <img id="fotoac" style="height: 120px " src="{{ asset('assets/images/drenfondo.png') }}" alt="" class="img-fluid">
                     </div>
-                    <div class="col-7 col-md-8">
-                        <label for="drenm" class="form-label">Nº de Dren mínimo</label>
-                        <input type="number" readonly class="form-control" id="drenm" step="0" min="0" placeholder="0" required>
-                        <label for="dren" class="form-label">Asumir Nº de Dren</label>
-                        <input type="number" class="form-control" id="dren" name="dren" step="0" min="0" placeholder="0" required>
+                    <div class="row col-8 col-md-9">
+                      <div class="col-6 col-md-6">
+                          <label for="drenm" class="form-label">Nº mínimo</label>
+                          <input type="number" readonly class="form-control" id="drenm" step="0" min="0" placeholder="0" required>
+                      </div>
+                      <div class="col-6 col-md-6">
+                          <label for="pcantidadac" class="form-label">Cantidad</label>
+                          <input type="number" id="pcantidadac" name="cantidadac[]"class="form-control" placeholder="0.0000"/>
+                      </div>
+                      <div class="col-12 col-md-12" style="">
+                        <button type="button" class="btn btn-info" onclick="agregarac()" id="bt_agregarac">
+                          <i class="fas fa-shopping-cart"></i> Agregar
+                      </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class=" table-responsive">
+                      <table class="table table-striped align-middle">
+                        <thead class=" ">
+                            <tr>
+                                <th>Operaciones</th>
+                                <th>Nombre</th>
+                                <th>Foto</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablota">
+                          <!-- Contenido dinámico -->
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                   <button type="button" aria-controls="paso5" class="btn btn-info" id="btnVolver5">Volver <i class="fa-solid fa-plus"></i></button>
@@ -650,36 +663,77 @@
                       </div>
                     </div>
                   </div>
-                  <div id="forma1-fields" class="row mt-3 mb-3">
+                  <div id="forma1-fields" class="row">
                     <h5>1º Forma</h5>
                     <p>Adoptar el área de filtrado del fabricante y verificar la velocidad de filtrado</p>
-                    <div class="col-md-4 col-6">
+                    <div class="col-md-4 col-6 mb-3">
                       <label for="areaf" class="form-label">Área de Filtrado (m²)</label>
-                      <input type="number" class="form-control" id="areaf" step="0.000" min="0.000" placeholder="0.000">
+                      <input type="number" class="form-control" id="areaf">
                     </div>
-                    <div class="col-md-4 col-6">
+                    <div class="col-md-4 col-6 mb-3">
                       <label for="velocidadf" class="form-label">Velocidad de Filtrado (m/h)</label>
                       <input type="number" readonly class="form-control" id="velocidadf" step="0" min="0" placeholder="0">
                     </div>
                     <div class="col-md-4 col-6">
-                      <label for="filtro" class="form-label">Modelo</label>
-                      <input type="text" class="form-control" id="filtro" name="filtro">
+                    <label for="modelo" class="form-label">Modelo</label>
+                      <select class="form-select" name="filtro_id[]" id="pid_modelo1">
+                        @foreach ($filtro as $filtro)
+                            <option value="{{ $filtro->id }}" data-areaf="{{ $filtro->areaf }}" data-diametro="{{ $filtro->diametro }}"  data-velocidad="{{ $filtro->velocidad }}">
+                                {{ $filtro->modelo }}
+                            </option>
+                        @endforeach
+                      </select>
                     </div>
+                    
                   </div>
-                  <div id="forma2-fields" class="row mb-3">
+                  <div id="forma2-fields" class="row">
                     <h5>2º Forma</h5>
                     <p>Adoptar la velocidad de filtrado de acuerdo al reglamento y determinar el diámetro del filtro</p>
-                    <div class="col-md-4 col-6">
-                      <label for="velocidadf2" class="form-label">Velocidad de Filtrado (m/h)</label>
-                      <input type="number" class="form-control" id="velocidadf2" step="0" min="0" placeholder="0">
+                    <div class="col-md-4 col-6 mb-3">
+                      <label for="pvelocidadf2" class="form-label">Velocidad de Filtrado (m/h)</label>
+                      <input type="number" class="form-control" id="pvelocidadf2" step="0" min="0" placeholder="0">
                     </div>
-                    <div class="col-md-4 col-6">
+                    <div class="col-md-4 col-6 mb-3">
                       <label for="diametrof" class="form-label">Diámetro del Filtro (mm)</label>
                       <input type="number" readonly class="form-control" id="diametrof" step="0.00" min="0.00" placeholder="0.00">
                     </div>
-                    <div class="col-md-4 col-6">
-                      <label for="filtro2" class="form-label">Modelo</label>
-                      <input type="text" class="form-control" id="filtro2" name="filtro">
+                    <div class="col-md-4 col-6 mb-3">
+                      <label for="modelo" class="form-label">Modelo</label>
+                      <select class="form-select" name="filtro_id[]" id="pid_modelo2">
+                        @foreach ($item as $item)
+                            <option value="{{ $item->id }}"  data-velocidad="{{ $item->velocidad }}"  data-areaf="{{ $item->areaf }}"  data-diametro="{{ $item->diametro }}">
+                                {{ $item->modelo }}
+                            </option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                  <label for="pcantidad" class="form-label">Cantidad</label>
+                    <div class="col-md-4 col-6 mb-3">
+                      <input type="number" id="pcantidad" name="cantidadf[]"class="form-control" placeholder="0.0000"/>
+                    </div>
+                    <div class="col-md-4 col-6 mb-3">
+                      <button type="button" class="btn btn-success btn-sm" onclick="agregar()" id="bt_agregar">
+                          <i class="fas fa-shopping-cart"></i> Agregar
+                      </button>
+                    </div>
+                    <div class=" table-responsive">
+                      <table class="table table-striped align-middle">
+                        <thead class=" ">
+                            <tr>
+                                <th>Operaciones</th>
+                                <th>Modelo</th>
+                                <th>Diámetro de Filtrado</th>
+                                <th>Área de Filtrado</th>
+                                <th>Velocidad de Filtrado</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablita">
+                          <!-- Contenido dinámico -->
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                   <button type="button" aria-controls="paso6" class="btn btn-info" id="btnVolver6">Volver <i class="fa-solid fa-plus"></i></button>
@@ -701,6 +755,107 @@
   </div>
 @endsection
 @section('js')
+<script>
+    var cont=0;
+    function agregarac(){
+      var accesorio_id = $("#pid_accesorio").val();
+      var cantidadac=$("#pcantidadac").val();
+      var foto = $("#pid_accesorio option:selected").data('foto');
+      var nombre=$("#pid_accesorio option:selected").text();
+      //alert(nombre);
+      if(cantidadac!="" && cantidadac>0){
+        var filaa = `
+            <tr class="selected" id="filaa${cont}">
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="eliminarac(${cont})">Eliminar</button>
+                    </td>
+                <td>
+                    <input type="hidden" name="accesorio_id[]" value="${accesorio_id}">
+                    ${nombre}
+                </td>
+                <td>
+                    <input type="number" name="cantidadac[]" value="${cantidadac}">
+                </td>
+                <td>
+                    <img src="${foto}" class="img-5x" alt="Foto" />
+                </td>
+            </tr>`;        
+            cont++;
+        $("#tablota").append(filaa);
+      } else{
+          alert("Por favor rellenar los campos faltantes")
+      }
+    }
+    function cambiarfoto(){
+      var foto = $("#pid_accesorio option:selected").data('foto');
+      //document.getElementById('fotoac').value = d_fil;
+      $("#fotoac").attr("src", foto);
+    }
+    document.getElementById('pid_accesorio').addEventListener('change', cambiarfoto);
+  function eliminarac(pos){
+    $("#filaa"+pos).remove();
+  }
+</script>
+<script>
+    var cont=0;
+    function agregar(){
+    const forma1radio = document.getElementById('forma1');
+    const forma2radio = document.getElementById('forma2');
+    const filtro = document.getElementById('pid_modelo1');
+    const filtro2 = document.getElementById('pid_modelo2');
+    var filtro_id = 0;
+    var diametro = 0;
+    var areaf = 0;
+    var velocidad = 0;
+    var nombre= "";
+    if (forma1radio.checked) {
+      filtro_id = $("#pid_modelo1").val();
+      diametro = $("#pid_modelo1 option:selected").data('diametro');
+      areaf = $("#pid_modelo1 option:selected").data('areaf');
+      velocidad = $("#pid_modelo1 option:selected").data('velocidad');
+      nombre=$("#pid_modelo1 option:selected").text();
+    } else if (forma2radio.checked) {
+      filtro_id = $("#pid_modelo2").val();
+      diametro = $("#pid_modelo2 option:selected").data('diametro');
+      areaf = $("#pid_modelo2 option:selected").data('areaf');
+      velocidad = $("#pid_modelo2 option:selected").data('velocidad');
+      var nombre=$("#pid_modelo2 option:selected").text();
+    }
+    var cantidad=$("#pcantidad").val();
+    //alert(nombre);
+    if(cantidad!="" && cantidad>0){
+        var fila = `
+            <tr id="fila${cont}">
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="eliminar(${cont})">Eliminar</button>
+                    </td>
+                <td>
+                    <input type="hidden" name="filtro_id[]" value="${filtro_id}">
+                    ${nombre}
+                </td>
+                <td>
+                    <input type="number" name="diametro[]" value="${diametro}">
+                </td>
+                 <td>
+                    <input type="number" name="areaf[]" value="${areaf}">
+                </td>
+                <td>
+                    <input type="number" name="velocidad[]" value="${velocidad}">
+                </td>
+                <td>
+                    <input type="number" name="cantidadf[]" value="${cantidad}">
+                </td>
+            </tr>`;        
+            cont++;
+        $("#tablita").append(fila);
+    } else{
+        alert("Por favor rellenar los campos faltantes")
+    }
+}
+    function eliminar(pos){
+        $("#fila"+pos).remove();
+    }
+</script>
 <script>
   //CONTINUAR
   document.getElementById('btnContinuar').addEventListener('click', () => {
@@ -952,11 +1107,11 @@
 
   const areaf = document.getElementById('areaf');
   const velocidadf = document.getElementById('velocidadf');
-  const filtro = document.getElementById('filtro');
+  const filtro = document.getElementById('pid_modelo1');
 
-  const velocidadf2 = document.getElementById('velocidadf2');
+  const velocidadf2 = document.getElementById('pvelocidadf2');
   const diametrof = document.getElementById('diametrof');
-  const filtro2 = document.getElementById('filtro2');
+  const filtro2 = document.getElementById('pid_modelo2');
 
   // Función para mostrar/ocultar campos según la selección
   function toggleFields2() {
@@ -989,14 +1144,19 @@
   toggleFields2();
 
   function v_filtrado(){
-    var vel = caudal/areaf.value;
+    var area = $("#pid_modelo1 option:selected").data('areaf');
+    document.getElementById('areaf').value = area;
+    var vel = caudal/area;
     document.getElementById('velocidadf').value = vel;
   }
-  areaf.addEventListener('input', v_filtrado);
+  document.getElementById('pid_modelo1').addEventListener('input', v_filtrado);
+
   function d_filtro(){
-    var d_fil= ((Math.sqrt((4 * caudal) / (Math.PI * velocidadf2.value)))*1000).toFixed(2);
+    var pvelocidadf2 = $("#pid_modelo2 option:selected").data('velocidad');
+    document.getElementById('pvelocidadf2').value = pvelocidadf2;
+    var d_fil= ((Math.sqrt((4 * caudal) / (Math.PI * pvelocidadf2)))*1000).toFixed(2);
     document.getElementById('diametrof').value = d_fil;
   }
-  velocidadf2.addEventListener('input', d_filtro);
+  document.getElementById('pid_modelo2').addEventListener('change', d_filtro);
 </script>
 @endsection

@@ -234,6 +234,8 @@
     <!-- Page wrapper end -->
     <!-- ************* JavaScript Files  ************* -->
     <!-- Required jQuery first, then Bootstrap Bundle JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ************* Vendor Js Files ************* -->
