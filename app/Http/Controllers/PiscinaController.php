@@ -78,23 +78,10 @@ class PiscinaController extends Controller
         $piscina->caudal=$request->get('caudal');
         $piscina->succion=$request->get('succion');
         $piscina->impulsion=$request->get('impulsion');
-        dd($request->all());
+        //dd($request->all());
 
         //dd($piscina);
         $piscina->save();
-
-        $filtro_id=$request->get('filtro_id');
-        $cantidadf=$request->get('cantidadf');
-        $cont=0;
-        while($cont<count($filtro_id)){
-            $detallef=new Detalle_filtro;
-            $detallef->piscina_id=$piscina->id;
-            $detallef->filtro_id=$filtro_id[$cont];
-            $detallef->cantidad=$cantidadf[$cont];
-        
-            $detallef->save();
-            $cont=$cont+1;
-        }
 
         $accesorio_id=$request->get('accesorio_id');
         $cantidadac=$request->get('cantidadac');
@@ -108,10 +95,24 @@ class PiscinaController extends Controller
             $detallea->save();
             $cont2=$cont2+1;
         }
-        //dd($detallea);
-        //DB::commit();
+
+        $filtro_id=$request->get('filtro_id');
+        $cantidadf=$request->get('cantidadf');
+        $cont=0;
+        while($cont<count($filtro_id)){
+            $detallef=new Detalle_filtro;
+            $detallef->piscina_id=$piscina->id;
+            $detallef->filtro_id=$filtro_id[$cont];
+            $detallef->cantidad=$cantidadf[$cont];
         
-        //return redirect()->action([PiscinaController::class, 'index']);
+            $detallef->save();
+            $cont=$cont+1;
+        }
+        
+        //dd($detallea);
+        DB::commit();
+        
+        return redirect()->action([PiscinaController::class, 'index']);
     }
     /**
      * Display the specified resource.

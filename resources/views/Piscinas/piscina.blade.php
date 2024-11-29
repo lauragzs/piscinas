@@ -593,7 +593,7 @@
                   <div class="row mb-3">
                     <div class="col-md-3 col-6">
                       <label for="pid_accesorio" class="form-label">Accesorio</label>
-                      <select class="form-select" name="accesorio_id[]" id="pid_accesorio">
+                      <select class="form-select" name="pid_accesorio" id="pid_accesorio">
                         @foreach ($accesorio as $accesorio)
                             <option value="{{ $accesorio->id }}" data-foto="{{ $accesorio->foto }}">
                                 {{ $accesorio->nombre }}
@@ -609,11 +609,11 @@
                     <div class="row col-8 col-md-9">
                       <div class="col-6 col-md-6">
                           <label for="drenm" class="form-label">Nº mínimo</label>
-                          <input type="number" readonly class="form-control" id="drenm" step="0" min="0" placeholder="0" required>
+                          <input type="number" readonly class="form-control" id="minimo" step="0" min="0" placeholder="0" required>
                       </div>
                       <div class="col-6 col-md-6">
                           <label for="pcantidadac" class="form-label">Cantidad</label>
-                          <input type="number" id="pcantidadac" name="cantidadac[]"class="form-control" placeholder="0.0000"/>
+                          <input type="number" id="pcantidadac" class="form-control" placeholder="0.0000"/>
                       </div>
                       <div class="col-12 col-md-12" style="">
                         <button type="button" class="btn btn-info" onclick="agregarac()" id="bt_agregarac">
@@ -676,7 +676,7 @@
                     </div>
                     <div class="col-md-4 col-6">
                     <label for="modelo" class="form-label">Modelo</label>
-                      <select class="form-select" name="filtro_id[]" id="pid_modelo1">
+                      <select class="form-select" name="pid_modelo1" id="pid_modelo1">
                         @foreach ($filtro as $filtro)
                             <option value="{{ $filtro->id }}" data-areaf="{{ $filtro->areaf }}" data-diametro="{{ $filtro->diametro }}"  data-velocidad="{{ $filtro->velocidad }}">
                                 {{ $filtro->modelo }}
@@ -699,7 +699,7 @@
                     </div>
                     <div class="col-md-4 col-6 mb-3">
                       <label for="modelo" class="form-label">Modelo</label>
-                      <select class="form-select" name="filtro_id[]" id="pid_modelo2">
+                      <select class="form-select" name="pid_modelo2" id="pid_modelo2">
                         @foreach ($item as $item)
                             <option value="{{ $item->id }}"  data-velocidad="{{ $item->velocidad }}"  data-areaf="{{ $item->areaf }}"  data-diametro="{{ $item->diametro }}">
                                 {{ $item->modelo }}
@@ -711,7 +711,7 @@
                   <div class="row mb-3">
                   <label for="pcantidad" class="form-label">Cantidad</label>
                     <div class="col-md-4 col-6 mb-3">
-                      <input type="number" id="pcantidad" name="cantidadf[]"class="form-control" placeholder="0.0000"/>
+                      <input type="number" id="pcantidad" class="form-control" placeholder="0.0000"/>
                     </div>
                     <div class="col-md-4 col-6 mb-3">
                       <button type="button" class="btn btn-success btn-sm" onclick="agregar()" id="bt_agregar">
@@ -764,6 +764,8 @@
       var nombre=$("#pid_accesorio option:selected").text();
       //alert(nombre);
       if(cantidadac!="" && cantidadac>0){
+        var filaa = '<tr class="selected" id="filaa' + cont + '"><td><button type="button" class="btn btn-danger" onclick="eliminarac(' + cont + ')">Eliminar</button></td><td><input type="hidden" name="accesorio_id[]" value="' + accesorio_id + '">' + nombre + '</td><td><img src="' + foto + '" class="img-5x" alt="Foto" /></td><td><input type="number" name="cantidadac[]" value="' + cantidadac + '"></td></tr>';
+/*
         var filaa = `
             <tr class="selected" id="filaa${cont}">
                 <td>
@@ -779,7 +781,7 @@
                 <td>
                     <img src="${foto}" class="img-5x" alt="Foto" />
                 </td>
-            </tr>`;        
+            </tr>`;  */      
             cont++;
         $("#tablota").append(filaa);
       } else{
@@ -792,9 +794,23 @@
       $("#fotoac").attr("src", foto);
     }
     document.getElementById('pid_accesorio').addEventListener('change', cambiarfoto);
-  function eliminarac(pos){
-    $("#filaa"+pos).remove();
-  }
+      function eliminarac(pos){
+      $("#filaa"+pos).remove();
+    }
+    function paso6(){
+    var area = document.getElementById('area').value;
+    if(document.getElementById('pid_accesorio').value=="Skimmer"){
+      //Skimmer
+      document.getElementById('minimo').value = area/50;
+    } else if($("#pid_accesorio option:selected").text()=="Dren de Fondo"){
+      //Dren de Fondo
+      document.getElementById('minimo').value = 2;
+
+    } else if($("#pid_accesorio option:selected").text()=="Retorno"){
+      //Retorno
+      document.getElementById('minimo').value = (area*2)/50;
+    }
+    }
 </script>
 <script>
     var cont=0;
@@ -824,7 +840,8 @@
     var cantidad=$("#pcantidad").val();
     //alert(nombre);
     if(cantidad!="" && cantidad>0){
-        var fila = `
+      var fila = '<tr id="fila' + cont + '"><td><button type="button" class="btn btn-danger" onclick="eliminar(' + cont + ')">Eliminar</button></td><td><input type="hidden" name="filtro_id[]" value="' + filtro_id + '">' + nombre + '</td><td><input type="number" name="diametro[]" value="' + diametro + '"></td><td><input type="number" name="areaf[]" value="' + areaf + '"></td><td><input type="number" name="velocidad[]" value="' + velocidad + '"></td><td><input type="number" name="cantidadf[]" value="' + cantidad + '"></td></tr>';
+      /*/var fila = `
             <tr id="fila${cont}">
                 <td>
                     <button type="button" class="btn btn-danger" onclick="eliminar(${cont})">Eliminar</button>
@@ -845,7 +862,7 @@
                 <td>
                     <input type="number" name="cantidadf[]" value="${cantidad}">
                 </td>
-            </tr>`;        
+            </tr>`;   */   
             cont++;
         $("#tablita").append(fila);
     } else{
@@ -1063,13 +1080,6 @@
       document.getElementById('impulsion').value = diametroi + " mm";
       /*alert(diametros);
       alert(diametroi);*/
-  }
-  function paso6(){
-    var area = document.getElementById('area').value;
-    document.getElementById('skimmerm').value = area/50;
-    document.getElementById('drenm').value = 2;
-    document.getElementById('retornom').value = (area*2)/50;
-
   }
   // Función para mostrar/ocultar campos según la selección
   function toggleFields() {
