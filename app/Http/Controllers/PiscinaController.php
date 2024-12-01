@@ -47,10 +47,58 @@ class PiscinaController extends Controller
     public function store(Request $request)
     {
         //
-        $piscina= new Piscina($request->all());
-        $piscina->save();
+        DB:: beginTransaction();
+        $piscina=new Piscina;
+        $piscina->nombrep=$request->get('nombrep');
+        $piscina->cliente=$request->get('cliente');
+        $piscina->pais=$request->get('pais');
+        $piscina->telefono=$request->get('telefono');
+        $piscina->tipo=$request->get('tipo');
+        $piscina->profundidad=$request->get('profundidad');
+        $piscina->largo=$request->get('largo');
+        $piscina->ancho=$request->get('ancho');
+        $piscina->longitud=$request->get('longitud');
+        $piscina->area=$request->get('area');
+        $piscina->perimetro=$request->get('perimetro');
+        $piscina->volumen=$request->get('volumen');
+        $piscina->tipologia=$request->get('tipologia');
+        $piscina->caudal=$request->get('caudal');
+        $piscina->succion=$request->get('succion');
+        $piscina->impulsion=$request->get('impulsion');
+        //dd($request->all());
+
         //dd($piscina);
-        return redirect()->action([PiscinaController::class, 'index']);
+        $piscina->save();
+
+        $filtro_id=$request->get('filtro_id');
+        $cantidadf=$request->get('cantidadf');
+        $cont=0;
+        while($cont<count($filtro_id)){
+            $detallef=new Detalle_filtro;
+            $detallef->piscina_id=$piscina->id;
+            $detallef->filtro_id=$filtro_id[$cont];
+            $detallef->cantidad=$cantidadf[$cont];
+        
+            $detallef->save();
+            $cont=$cont+1;
+        }
+
+        $accesorio_id=$request->get('accesorio_id');
+        $cantidadac=$request->get('cantidadac');
+        $cont2=0;
+        while($cont2<count($accesorio_id)){
+            $detallea=new Detalle_accesorio;
+            $detallea->piscina_id=$piscina->id;
+            $detallea->accesorio_id=$accesorio_id[$cont2];
+            $detallea->cantidad=$cantidadac[$cont2];
+        
+            $detallea->save();
+            $cont2=$cont2+1;
+        }
+        //dd($detallea);
+        //DB::commit();
+        
+        //return redirect()->action([PiscinaController::class, 'index']);
     }
     /**
      * Display the specified resource.
