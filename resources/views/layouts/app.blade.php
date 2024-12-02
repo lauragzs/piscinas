@@ -105,23 +105,32 @@
                 </a>
               </li>
               <li>
-                <a href=" ">
-                  <i class="bi bi-gear"></i>
-                  <span class="menu-text">Configuracion</span>
-                </a>
-              </li>
-              <li>
-                <a href="{{route('profile.edit')}}">
-                  <i class="bi bi-person-square"></i>
-                  <span class="menu-text">Perfil</span>
-                </a>
-              </li>
-              <li>
-                <a href=" ">
+                <a href="{{route('filtro.index')}}">
                   <i class="bi bi-slash-square"></i>
-                  <span class="menu-text">Tablas</span>
+                  <span class="menu-text">Filtros</span>
                 </a>
               </li>
+              @role('Administrador')
+              <li>
+                <a href="{{route('accesorio.index')}}">
+                  <i class="bi bi-gear"></i>
+                  <span class="menu-text">Accesorios</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{route('rol.index')}}">
+                  <i class="bi bi-person-square"></i>
+                  <span class="menu-text">Roles</span>
+                </a>
+              </li>
+              
+              <li>
+                <a href="{{route('asignar')}}">
+                  <i class="bi bi-slash-square"></i>
+                  <span class="menu-text">Usuarios</span>
+                </a>
+              </li>
+              @endrole
               <li class="treeview">
                 <a href="#">
                   <i class="bi bi-upc-scan"></i>

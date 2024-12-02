@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Piscina;
 use App\Models\Accesorio;
 use App\Models\Filtro;
+use App\Models\Detalle_filtro;
+use App\Models\Detalle_accesorio;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -21,10 +24,11 @@ class PiscinaController extends Controller
     public function index()
     {
         //
-        $accesorios=Accesorio::all();
-        $filtros=Filtro::all();
+        $accesorio=Accesorio::all();
+        $filtro=Filtro::all();
+        $item=Filtro::all();
         $piscinas=Piscina::all();    
-        return view('Piscinas.piscina',['piscinas'=>$piscinas,'filtros'=>$filtros,'accesorios'=>$accesorios]);
+        return view('Piscinas.piscina',['piscinas'=>$piscinas,'filtro'=>$filtro,'accesorio'=>$accesorio,'item'=>$item]);
     }
 
     /**
@@ -96,9 +100,9 @@ class PiscinaController extends Controller
             $cont2=$cont2+1;
         }
         //dd($detallea);
-        //DB::commit();
+        DB::commit();
         
-        //return redirect()->action([PiscinaController::class, 'index']);
+        return redirect()->action([PiscinaController::class, 'index']);
     }
     /**
      * Display the specified resource.

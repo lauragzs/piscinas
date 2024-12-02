@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PiscinaController;
 use App\Http\Controllers\FiltroController;
 use App\Http\Controllers\AccesorioController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AsignarController;
+use Spatie\Permission\Models\Role;
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -71,7 +74,16 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('piscina', PiscinaController::class);
     Route::resource('filtro', FiltroController::class);
+    
+});
+
+// PAL ADMIN
+Route::group(['middleware' => ['role:Administrador']],function () {
     Route::resource('accesorio', AccesorioController::class);
+    Route::resource('rol', RoleController::class);
+    Route::get('/asignar',[AsignarController::class,'index'])->name('asignar');
+    Route::get('/asignar_{id}_editar',[AsignarController::class,'edit'])->name('asignar.edit');
+    Route::put('/asignar_{id}',[AsignarController::class,'update'])->name('asignar.update');
 });
 
 require __DIR__.'/auth.php';

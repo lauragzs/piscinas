@@ -604,7 +604,7 @@
                   </div>
                   <div class="row mb-3">
                     <div class="col-4 col-md-3">
-                      <img id="fotoac" style="height: 120px " src="{{ asset('assets/images/drenfondo.png') }}" alt="" class="img-fluid">
+                      <img id="fotoac" style="height: 120px " src="{{ asset('assets/images/retorno.jpg') }}" alt="" class="img-fluid">
                     </div>
                     <div class="row col-8 col-md-9">
                       <div class="col-6 col-md-6">
@@ -613,7 +613,7 @@
                       </div>
                       <div class="col-6 col-md-6">
                           <label for="pcantidadac" class="form-label">Cantidad</label>
-                          <input type="number" id="pcantidadac" class="form-control" placeholder="0.0000"/>
+                          <input type="number" id="pcantidadac" class="form-control" placeholder="0"/>
                       </div>
                       <div class="col-12 col-md-12" style="">
                         <button type="button" class="btn btn-info" onclick="agregarac()" id="bt_agregarac">
@@ -668,7 +668,7 @@
                     <p>Adoptar el área de filtrado del fabricante y verificar la velocidad de filtrado</p>
                     <div class="col-md-4 col-6 mb-3">
                       <label for="areaf" class="form-label">Área de Filtrado (m²)</label>
-                      <input type="number" class="form-control" id="areaf">
+                      <input type="number" class="form-control" id="areaf" step="0" min="0" placeholder="0">
                     </div>
                     <div class="col-md-4 col-6 mb-3">
                       <label for="velocidadf" class="form-label">Velocidad de Filtrado (m/h)</label>
@@ -711,7 +711,7 @@
                   <div class="row mb-3">
                   <label for="pcantidad" class="form-label">Cantidad</label>
                     <div class="col-md-4 col-6 mb-3">
-                      <input type="number" id="pcantidad" class="form-control" placeholder="0.0000"/>
+                      <input type="number" id="pcantidad" class="form-control" placeholder="0"/>
                     </div>
                     <div class="col-md-4 col-6 mb-3">
                       <button type="button" class="btn btn-success btn-sm" onclick="agregar()" id="bt_agregar">
@@ -799,17 +799,18 @@
     }
     function paso6(){
     var area = document.getElementById('area').value;
-    if(document.getElementById('pid_accesorio').value=="Skimmer"){
-      //Skimmer
-      document.getElementById('minimo').value = area/50;
-    } else if($("#pid_accesorio option:selected").text()=="Dren de Fondo"){
-      //Dren de Fondo
-      document.getElementById('minimo').value = 2;
-
-    } else if($("#pid_accesorio option:selected").text()=="Retorno"){
+    if(document.getElementById('pid_accesorio').value==1){
       //Retorno
       document.getElementById('minimo').value = (area*2)/50;
+    } else if(document.getElementById('pid_accesorio').value==2){
+      //Skimmer
+      document.getElementById('minimo').value = area/50;
+
+    } else if(document.getElementById('pid_accesorio').value==3){
+      //Dren de Fondo
+      document.getElementById('minimo').value = 2;
     }
+    document.getElementById('pid_accesorio').addEventListener('change', paso6);
     }
 </script>
 <script>
